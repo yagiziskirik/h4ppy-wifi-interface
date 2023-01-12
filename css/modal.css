@@ -1,0 +1,198 @@
+/**
+ * Copyright (c) 2022 Yağız Işkırık
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+.newModal {
+    position: fixed;
+    z-index: 999;
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newModal.active {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.newModal .dispose {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body:not(.dark-mode) .panel__content {
+    background: var(--lm-navbar-bg-color);
+}
+
+.panel {
+    border-radius: 25px;
+    transition: 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    transform: rotateX(-90deg);
+}
+
+.panel.is--open {
+    transform: rotateX(0deg);
+}
+
+.panel__content {
+    box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.3);
+    padding-bottom: 3rem;
+    background: var(--dm-navbar-bg-color);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    text-align: center;
+}
+
+.panel__content h4 {
+    padding: 1.5em 0;
+    border-bottom: 2px solid #ededed;
+    color: #f5c265;
+    font-size: 1.15em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.panel__content h2 {
+    padding: 0.5em 1.5em;
+    font-size: 3em;
+    font-weight: 300;
+}
+
+.panel__content p {
+    margin: auto;
+    width: 55%;
+    font-size: 1.15em;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+.panel__flaps {
+    display: flex;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+body:not(.dark-mode) .flap {
+    background: #f5c265;
+}
+
+body:not(.dark-mode) .flap__btn {
+    background: #fabd4c;
+}
+
+.flap {
+    height: 100px;
+    background: #e7ae46;
+}
+
+.flap__btn {
+    width: calc((100% - 212px) / 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #e7ae46;
+    color: white!important;
+    cursor: pointer;
+    font-size: 2.25em;
+    font-weight: 700;
+    text-decoration: none!important;
+    z-index: 1;
+    transition: 0.2s ease;
+    transform: translate3d(0, 0, 0);
+    transform-origin: top center;
+}
+
+.flap__btn:hover,
+.flap__btn:focus {
+    background: #f5c265;
+    outline: none;
+    transform: rotateX(-25deg) translate3d(0, 0, 0);
+}
+
+.outer {
+    width: 106px;
+}
+
+.flap--left {
+    border-bottom-left-radius: 25px;
+    transform-origin: top right;
+}
+
+.flap--right {
+    border-bottom-right-radius: 25px;
+    transform-origin: top left;
+}
+
+.is--open .outer {
+    -webkit-animation: swing 1.5s 0.2s ease;
+    animation: swing 1.5s 0.2s ease;
+}
+
+.is--open .flap__btn:first-of-type {
+    -webkit-animation: swing 1.5s 0.3s ease;
+    animation: swing 1.5s 0.3s ease;
+}
+
+.is--open .flap__btn:last-of-type {
+    -webkit-animation: swing 1.5s 0.4s ease;
+    animation: swing 1.5s 0.4s ease;
+}
+
+@-webkit-keyframes swing {
+    10% {
+        transform: rotateX(25deg);
+    }
+
+    50% {
+        transform: rotateX(-15deg);
+    }
+
+    75% {
+        transform: rotateX(5deg);
+    }
+
+    90% {
+        transform: rotateX(-2.5deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes swing {
+    10% {
+        transform: rotateX(25deg);
+    }
+
+    50% {
+        transform: rotateX(-15deg);
+    }
+
+    75% {
+        transform: rotateX(5deg);
+    }
+
+    90% {
+        transform: rotateX(-2.5deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
+}
