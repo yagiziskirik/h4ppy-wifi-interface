@@ -3,10 +3,11 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Terminal } from 'xterm';
-import 'xterm/css/xterm.css';
 import { useEffect } from 'react';
-import { io, type Socket } from 'Socket.IO-client';
+import { type Socket, io } from 'Socket.IO-client';
+import { Terminal } from 'xterm';
+
+import 'xterm/css/xterm.css';
 let socket: Socket;
 
 export default function Term() {
@@ -21,9 +22,9 @@ export default function Term() {
       // await fetch('http://localhost:3001');
       socket = io('http://localhost:3001');
 
-      socket.on('connect', () => {
-        console.log('connected');
-      });
+      // socket.on('connect', () => {
+      //   console.log('connected');
+      // });
 
       socket.on('chat message', (data) => {
         term.write(data);
@@ -33,7 +34,6 @@ export default function Term() {
     socketInitializer();
 
     return () => {
-      console.log('disconnected');
       socket.disconnect();
     };
   });

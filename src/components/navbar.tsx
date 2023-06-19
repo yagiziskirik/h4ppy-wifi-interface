@@ -4,6 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import Link from 'next/link';
+
 import NextImage from './NextImage';
 
 export default function Navbar() {

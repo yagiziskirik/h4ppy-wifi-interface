@@ -3,8 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import * as React from 'react';
 import dynamic from 'next/dynamic';
+import * as React from 'react';
+
 import Sidebar from '@/components/Sidebar';
 
 const Term = dynamic(() => import('@/components/Terminal'), { ssr: false });

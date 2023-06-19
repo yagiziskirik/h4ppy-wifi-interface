@@ -3,8 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { ReactElement } from 'react';
 import Link from 'next/link';
+import { ReactElement } from 'react';
 
 interface Props {
   children: ReactElement[];

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import UnderlineLink from '../links/UnderlineLink';
+
 import Navbar from '../navbar';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
