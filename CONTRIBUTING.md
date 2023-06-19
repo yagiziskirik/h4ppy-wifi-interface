@@ -1,6 +1,6 @@
 # Welcome to h4ppy-wifi-interface contributing guide <!-- omit in toc -->
 
-Thank you for investing your time in contributing to my project! Any contribution you make will be reflected on [h4ppy-wifi-interface](https://github.com/yagiziskirik/h4ppy-wifi-interface) page :sparkles:. 
+Thank you for investing your time in contributing to my project! Any contribution you make will be reflected on [h4ppy-wifi-interface](https://github.com/yagiziskirik/h4ppy-wifi-interface) page :sparkles:.
 
 In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
 
@@ -8,7 +8,7 @@ In this guide you will get an overview of the contribution workflow from opening
 
 To get an overview of the project, read the [README](README.md) file. Here are some resources to help you get started with open source contributions:
 
-- [Finding ways to contribute to open source on GitHub](https://docs.github.com/en/get-started/exploring-projects-on-github/finding-ways-to-contribute-to-open-source-on-github)
+    - [Finding ways to contribute to open source on GitHub](https://docs.github.com/en/get-started/exploring-projects-on-github/finding-ways-to-contribute-to-open-source-on-github)
 - [Set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git)
 - [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow)
 - [Collaborating with pull requests](https://docs.github.com/en/github/collaborating-with-pull-requests)
@@ -16,13 +16,13 @@ To get an overview of the project, read the [README](README.md) file. Here are s
 
 ## Getting started
 
-The project has two different parts. User Interface is built with [Halfmoon](http://gethalfmoon.com). Web interface is presented by Python's Flask library. Please test the user interface and the programming logic before committing to the current repo.
+[FILL THIS PART BY HAND]
 
 ### Issues
 
 #### Create a new issue
 
-If you spot a problem with the docs, [search if an issue already exists](https://docs.github.com/en/github/searching-for-information-on-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a new issue using a relevant [issue form](https://github.com/yagiziskirik/h4ppy-wifi-interface/issues/new/choose). 
+If you spot a problem with the docs, [search if an issue already exists](https://docs.github.com/en/github/searching-for-information-on-github/searching-on-github/searching-issues-and-pull-requests#search-by-the-title-body-or-comments). If a related issue doesn't exist, you can open a new issue using a relevant [issue form](https://github.com/yagiziskirik/h4ppy-wifi-interface/issues/new/choose).
 
 #### Solve an issue
 
@@ -44,7 +44,7 @@ Please make sure that the translations are accurate.
 
 Commit the changes once you are happy with them. You can follow this simple two steps:
 
-#### Self-Review
+    #### Self-Review
 
 Once your changes are ready, don't forget to self-review to speed up the review process:zap:.
 
@@ -52,7 +52,7 @@ You should always review your own PR first.
 
 For content changes, make sure that you:
 
-- [ ] Confirm that the changes meet the user experience and goals outlined in the content design plan (if there is one).
+    - [ ] Confirm that the changes meet the user experience and goals outlined in the content design plan (if there is one).
 - [ ] Compare your pull request's source changes to staging to confirm that the output matches the source and that everything is rendering as expected. This helps spot issues like typos, content that doesn't follow the style guide, or content that isn't rendering due to versioning problems. Remember that lists and tables can be tricky.
 - [ ] Review the content for technical accuracy.
 - [ ] Copy-edit the changes for grammar, spelling.
@@ -85,7 +85,7 @@ For content changes, make sure that you:
 ### Pull Request
 
 When you're finished with the changes, create a pull request, also known as a PR.
-- Fill the "Ready for review" template so that we can review your PR. This template helps reviewers understand your changes as well as the purpose of your pull request. 
+- Fill the "Ready for review" template so that we can review your PR. This template helps reviewers understand your changes as well as the purpose of your pull request.
 - Don't forget to [link PR to issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) if you are solving one.
 - Enable the checkbox to [allow maintainer edits](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork) so the branch can be updated for a merge.
 Once you submit your PR, a Docs team member will review your proposal. We may ask questions or request for additional information.
@@ -95,8 +95,8 @@ Once you submit your PR, a Docs team member will review your proposal. We may as
 
 ### Your PR is merged!
 
-Congratulations :tada::tada: Thanks for your contribution! :sparkles:. 
+Congratulations :tada::tada: Thanks for your contribution! :sparkles:.
 
-Once your PR is merged, your contributions will be publicly visible on the [h4ppy-wifi-interface](https://github.com/yagiziskirik/h4ppy-wifi-interface) page. 
+Once your PR is merged, your contributions will be publicly visible on the [h4ppy-wifi-interface](https://github.com/yagiziskirik/h4ppy-wifi-interface) page.
 
 Now that you are part of the h4ppy-wifi-interface community, welcome to the team :cocktail:.

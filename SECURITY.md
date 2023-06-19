@@ -4,10 +4,10 @@
 
 Under these versions, you can report vulnerabilities:
 
-| Version           | Supported          |
+    | Version           | Supported          |
 | ----------------- | ------------------ |
-| 0.0.1b    | :white_check_mark: |
-| < 0.0.1b  | :x:                |
+| v0.1.0    | :white_check_mark: |
+| < v0.1.0  | :x:                |
 
 ## Reporting a Vulnerability
 
