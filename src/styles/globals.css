@@ -534,6 +534,10 @@
   .sidebar-header {
     border-bottom: solid 1px #ffffff12;
   }
+
+  .classy-underline {
+    border-bottom: solid 1px #ffffff32;
+  }
 }
 
 @layer utilities {
@@ -561,9 +565,30 @@
   }
 }
 
+.custom-bg {
+  background-color: #1a1c2082 !important;
+  border: none;
+  backdrop-filter: blur(3px) !important;
+  -webkit-backdrop-filter: blur(3px) !important;
+}
+
+.card {
+  border-radius: 0.4rem;
+}
+
+.card p {
+  opacity: 0.7;
+}
+
+/* Fix for typescript rounded-caps error */
+.apexcharts-radial-series path,
+.apexcharts-radialbar-track path {
+  stroke-linecap: round;
+}
+
 .glitch {
   position: relative;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 400;
   opacity: 0.8;
 }
