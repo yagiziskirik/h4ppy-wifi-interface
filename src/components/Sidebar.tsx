@@ -19,7 +19,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import NET from 'vanta/dist/vanta.net.min';
 
 interface Props {
   children: ReactElement[];
@@ -69,6 +71,35 @@ function SidebarLink({ name, active, icon, link }: SidebarProps) {
 }
 
 export default function Sidebar({ children, active = 'dashboard' }: Props) {
+  const [vantaEffect, setVantaEffect] = useState<typeof NET>(null);
+  const vantaRef = useRef(null);
+  useEffect(() => {
+    if (!vantaEffect) {
+      setVantaEffect(
+        NET({
+          el: vantaRef.current,
+          THREE,
+          mouseControls: false,
+          touchControls: false,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
+          backgroundColor: 0x26282c,
+          color: 0xd5a245,
+          scale: 1.0,
+          scaleMobile: 1.0,
+          points: 10.0,
+          maxDistance: 20.0,
+          spacing: 15.0,
+        })
+      );
+    }
+
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+
   return (
     <div className='min-h-main flex'>
       <div
@@ -150,7 +181,11 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
           link='mith'
         />
       </div>
-      <div className='min-h-main' style={{ width: 'calc(100vw - 19.5rem)' }}>
+      <div
+        className='min-h-main'
+        style={{ width: 'calc(100vw - 19.5rem)' }}
+        ref={vantaRef}
+      >
         <div className='h-full p-9 text-gray-100'>{children}</div>
       </div>
     </div>
