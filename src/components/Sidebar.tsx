@@ -41,12 +41,13 @@ interface SidebarProps {
   name: string;
   active: boolean;
   icon: IconDefinition;
+  link?: string;
 }
 
-function SidebarLink({ name, active, icon }: SidebarProps) {
+function SidebarLink({ name, active, icon, link }: SidebarProps) {
   return (
     <Link
-      href='/'
+      href={link ? '/' + link : '/'}
       className='mt-3 flex items-center gap-3 font-light text-gray-200/70 transition hover:text-gray-200'
     >
       <div
@@ -86,6 +87,7 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
           name='Setup'
           icon={faScrewdriverWrench}
           active={active === 'setup'}
+          link='setup'
         />
         <h3 className='sidebar-header mt-8 pb-1.5 text-lg font-light text-white/80'>
           Tools
@@ -94,26 +96,31 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
           name="Wi-Fi's Around"
           icon={faWifi}
           active={active === 'wifis-around'}
+          link='wifisaround'
         />
         <SidebarLink
           name='Placement Helper'
           icon={faLocationCrosshairs}
           active={active === 'placementhelper'}
+          link='placement'
         />
         <SidebarLink
           name='Get Handshake'
           icon={faHandshake}
           active={active === 'gethandshake'}
+          link='handshake'
         />
         <SidebarLink
           name='Evil Twin Attack'
           icon={faPeopleArrows}
           active={active === 'eviltwinattack'}
+          link='eviltwin'
         />
         <SidebarLink
           name='Terminal'
           icon={faTerminal}
           active={active === 'terminal'}
+          link='terminal'
         />
         <h3 className='sidebar-header mt-8 pb-1.5 text-lg font-light text-white/80'>
           Combined Attacks
@@ -122,27 +129,29 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
           name="Plant n' Leave"
           icon={faBuildingWheat}
           active={active === 'plantnleave'}
+          link='plantnleave'
         />
         <SidebarLink
           name='Wi-Fi Lockdown'
           icon={faLock}
           active={active === 'wifilockdown'}
+          link='lockdown'
         />
         <SidebarLink
           name='Handshake Collector'
           icon={faBasketShopping}
           active={active === 'handshakecollector'}
+          link='hscollector'
         />
         <SidebarLink
           name='Man In The House'
           icon={faHouseChimneyCrack}
           active={active === 'maninthehouse'}
+          link='mith'
         />
       </div>
       <div className='min-h-main' style={{ width: 'calc(100vw - 19.5rem)' }}>
-        <div className='layout relative flex h-full flex-col items-center justify-center py-12 text-center text-gray-100'>
-          {children}
-        </div>
+        <div className='h-full p-9 text-gray-100'>{children}</div>
       </div>
     </div>
   );
