@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { useEffect } from 'react';
-import { type Socket, io } from 'Socket.IO-client';
+import { type Socket, io } from 'socket.io-client';
 import { Terminal } from 'xterm';
 
 import 'xterm/css/xterm.css';
