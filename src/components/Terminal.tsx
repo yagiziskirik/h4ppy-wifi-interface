@@ -26,7 +26,7 @@ export default function Term() {
       //   console.log('connected');
       // });
 
-      socket.on('chat message', (data) => {
+      socket.on('terminal message', (data: string) => {
         term.write(data);
       });
     };
