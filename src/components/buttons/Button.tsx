@@ -45,7 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         className={clsxm(
           'inline-flex items-center rounded font-medium',
-          'focus-visible:ring-primary-500 focus:outline-none focus-visible:ring',
+          'focus-visible:ring-primary-300 focus:outline-none focus-visible:ring',
           'shadow-sm',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
@@ -64,11 +64,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               'disabled:bg-primary-700',
             ],
             variant === 'outline' && [
-              'text-primary-500',
-              'border-primary-500 border',
+              'text-primary-300',
+              'border-primary-300 border',
               'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
               isDarkBg &&
-                'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
+                'hover:bg-gray-800 active:bg-gray-700 disabled:bg-gray-800',
             ],
             variant === 'ghost' && [
               'text-primary-500',
