@@ -5,8 +5,11 @@
 
 import {
   faArrowUpRightFromSquare,
+  faClockRotateLeft,
   faCodeBranch,
+  faCodePullRequest,
   faLock,
+  faMicrochip,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dynamic from 'next/dynamic';
@@ -98,6 +101,47 @@ export default function HomePage() {
           <div className='my-4 flex items-center justify-between'>
             <div>◦ Max's iPhone</div>
             <div className='opacity-80'>E3:C8:15:32:6C:42</div>
+          </div>
+        </div>
+      </div>
+      <div className='mt-7 grid grid-cols-1 grid-rows-3 gap-7 pb-9 md:grid-cols-3 md:grid-rows-1'>
+        <div className='card custom-bg p-7'>
+          <div className='text-primary-300 flex items-center gap-3'>
+            <FontAwesomeIcon icon={faClockRotateLeft} width={23} />
+            <h3 className='text-2xl font-normal'>Uptime</h3>
+          </div>
+          <h1 className='mt-5 text-center font-bold opacity-80' id='uptime'>
+            00:00:00
+          </h1>
+        </div>
+        <div className='card custom-bg p-7'>
+          <div className='text-primary-300 flex items-center gap-3'>
+            <FontAwesomeIcon icon={faCodePullRequest} width={23} />
+            <h3 className='text-2xl font-normal'>Updates</h3>
+          </div>
+          <div className='mt-5 flex items-center justify-between'>
+            <p className='text-xl'>v0.1.0</p>
+            <Button variant='outline'>Check Updates</Button>
+          </div>
+        </div>
+        <div className='card custom-bg p-7'>
+          <div className='text-primary-300 flex items-center gap-3'>
+            <FontAwesomeIcon icon={faMicrochip} width={23} />
+            <h3 className='text-2xl font-normal'>System</h3>
+          </div>
+          <div className='mt-5 flex items-center gap-2'>
+            <Button
+              variant='primary'
+              className='flex w-1/2 justify-center border-yellow-500 bg-yellow-500 text-center text-black transition hover:border-yellow-400 hover:bg-yellow-400 hover:text-black active:border-yellow-600 active:bg-yellow-600'
+            >
+              Check Updates
+            </Button>
+            <Button
+              variant='primary'
+              className='flex w-1/2 justify-center border-red-500 bg-red-500 text-center transition hover:border-red-400 hover:bg-red-400 active:border-red-600 active:bg-red-600'
+            >
+              Power Off
+            </Button>
           </div>
         </div>
       </div>
