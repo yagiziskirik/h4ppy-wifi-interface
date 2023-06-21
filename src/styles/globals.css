@@ -529,6 +529,7 @@
   /* Class to adjust with sticky footer */
   .min-h-main {
     min-height: calc(100vh - 8rem);
+    height: calc(100vh - 8rem);
   }
 
   .sidebar-header {

@@ -182,7 +182,7 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
         />
       </div>
       <div
-        className='min-h-main'
+        className='min-h-main overflow-y-scroll'
         style={{ width: 'calc(100vw - 19.5rem)' }}
         ref={vantaRef}
       >
