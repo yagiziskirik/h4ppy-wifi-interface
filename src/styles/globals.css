@@ -573,6 +573,14 @@
   -webkit-backdrop-filter: blur(3px) !important;
 }
 
+.custom-toggle:checked ~ .dot {
+  transform: translateX(100%);
+}
+
+.custom-toggle:checked ~ .block {
+  @apply !bg-green-500;
+}
+
 .card {
   border-radius: 0.4rem;
 }

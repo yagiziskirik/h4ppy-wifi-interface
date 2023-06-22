@@ -186,7 +186,7 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
         style={{ width: 'calc(100vw - 19.5rem)' }}
         ref={vantaRef}
       >
-        <div className='h-full p-9 text-gray-100'>{children}</div>
+        <div className='h-full px-3 py-7 text-gray-100 md:p-9'>{children}</div>
       </div>
     </div>
   );
