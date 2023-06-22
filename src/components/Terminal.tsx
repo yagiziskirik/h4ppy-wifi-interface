@@ -37,6 +37,10 @@ export default function Term() {
 
     socketInitializer();
 
+    window.addEventListener('resize', () => {
+      fitAddon.fit();
+    });
+
     return () => {
       socket.disconnect();
     };
