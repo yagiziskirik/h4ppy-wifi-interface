@@ -27,17 +27,17 @@ export default function HomePage() {
       <h3 className='glitch' data-text='Dashboard'>
         Dashboard
       </h3>
-      <div className='mt-7 grid grid-cols-2 grid-rows-2 gap-7 md:grid-cols-4 md:grid-rows-1'>
+      <div className='mt-6 grid grid-cols-2 grid-rows-2 gap-4 md:mt-7 md:grid-cols-4 md:grid-rows-1 md:gap-7'>
         <SystemChart val={13} name='CPU' />
         <SystemChart val={22} name='RAM' />
         <SystemChart val={55} name='Storage' />
         <SystemChart val={77} name='Battery' />
       </div>
-      <div className='mt-7 grid grid-cols-1 grid-rows-2 gap-7 md:grid-cols-2 md:grid-rows-1'>
+      <div className='mt-4 grid grid-cols-1 grid-rows-2 gap-4 md:mt-7 md:grid-cols-2 md:grid-rows-1 md:gap-7'>
         <div className='card custom-bg p-7'>
           <div className='text-primary-300 flex items-center gap-3'>
-            <FontAwesomeIcon icon={faCodeBranch} width={23} />
-            <h3 className='text-2xl font-normal'>Current Work</h3>
+            <FontAwesomeIcon icon={faCodeBranch} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>Current Work</h3>
           </div>
           <p className='classy-underline mt-4 !opacity-90'>Details</p>
           <div className='mt-3 grid grid-cols-2 grid-rows-2 gap-x-1 font-thin'>
@@ -64,8 +64,8 @@ export default function HomePage() {
         </div>
         <div className='card custom-bg p-7'>
           <div className='text-primary-300 flex items-center gap-3'>
-            <FontAwesomeIcon icon={faLock} width={23} />
-            <h3 className='text-2xl font-normal'>Security</h3>
+            <FontAwesomeIcon icon={faLock} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>Security</h3>
           </div>
           <p className='classy-underline mt-4 !opacity-90'>Connected Devices</p>
           <div className='my-2 flex items-center justify-between'>
@@ -104,11 +104,11 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className='mt-7 grid grid-cols-1 grid-rows-3 gap-7 pb-9 md:grid-cols-3 md:grid-rows-1'>
+      <div className='mt-4 grid grid-cols-1 grid-rows-3 gap-4 pb-7 md:mt-7 md:grid-cols-3 md:grid-rows-1 md:gap-7 md:pb-9'>
         <div className='card custom-bg p-7'>
           <div className='text-primary-300 flex items-center gap-3'>
-            <FontAwesomeIcon icon={faClockRotateLeft} width={23} />
-            <h3 className='text-2xl font-normal'>Uptime</h3>
+            <FontAwesomeIcon icon={faClockRotateLeft} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>Uptime</h3>
           </div>
           <h1 className='mt-5 text-center font-bold opacity-80' id='uptime'>
             00:00:00
@@ -116,8 +116,8 @@ export default function HomePage() {
         </div>
         <div className='card custom-bg p-7'>
           <div className='text-primary-300 flex items-center gap-3'>
-            <FontAwesomeIcon icon={faCodePullRequest} width={23} />
-            <h3 className='text-2xl font-normal'>Updates</h3>
+            <FontAwesomeIcon icon={faCodePullRequest} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>Updates</h3>
           </div>
           <div className='mt-5 flex items-center justify-between'>
             <p className='text-xl'>v0.1.0</p>
@@ -126,8 +126,8 @@ export default function HomePage() {
         </div>
         <div className='card custom-bg p-7'>
           <div className='text-primary-300 flex items-center gap-3'>
-            <FontAwesomeIcon icon={faMicrochip} width={23} />
-            <h3 className='text-2xl font-normal'>System</h3>
+            <FontAwesomeIcon icon={faMicrochip} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>System</h3>
           </div>
           <div className='mt-5 flex items-center gap-2'>
             <Button

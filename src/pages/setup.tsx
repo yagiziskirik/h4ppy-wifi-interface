@@ -73,7 +73,7 @@ export default function TerminalPage() {
                   </p>
                 </div>
                 <div className='mt-3 w-full md:mt-0 md:w-3/5'>
-                  <div className='flex w-full items-center gap-4'>
+                  <div className='flex w-full flex-col items-center gap-4 md:flex-row'>
                     <Input
                       label='Wi-Fi Name'
                       value={wifiName}
@@ -104,7 +104,7 @@ export default function TerminalPage() {
                   </p>
                 </div>
                 <div className='mt-3 w-full md:mt-0 md:w-3/5'>
-                  <div className='flex w-full items-center gap-4'>
+                  <div className='flex w-full flex-col items-center gap-4 md:flex-row'>
                     <Input
                       label='Internal IP'
                       value={wifiName}
@@ -118,7 +118,7 @@ export default function TerminalPage() {
                       changeEvent={setWifiPwd}
                     />
                   </div>
-                  <div className='mt-3 flex w-full items-center gap-4'>
+                  <div className='mt-3 flex w-full flex-col items-center gap-4 md:flex-row'>
                     <Input
                       label='WPA'
                       value={wifiName}
@@ -132,7 +132,7 @@ export default function TerminalPage() {
                       changeEvent={setWifiPwd}
                     />
                   </div>
-                  <div className='mt-3 flex w-full items-center gap-4'>
+                  <div className='mt-3 flex w-full flex-col items-center gap-4 md:flex-row'>
                     <Input
                       label='WPA Pairwise'
                       value={wifiName}
@@ -155,6 +155,7 @@ export default function TerminalPage() {
           </>
         )}
       </div>
+      <div className='mt-4 w-full opacity-0 md:mt-7'>You are careful!</div>
     </Sidebar>
   );
 }

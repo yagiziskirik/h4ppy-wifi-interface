@@ -57,9 +57,9 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
               'disabled:bg-primary-700',
             ],
             variant === 'outline' && [
-              'text-primary-500',
-              'border-primary-500 border',
-              'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
+              'text-primary-300',
+              'border-primary-300 border',
+              'hover:bg-primary-200 active:bg-primary-100 hover:text-primary-600 hover:border-primary-600 disabled:bg-primary-100',
               isDarkBg &&
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],

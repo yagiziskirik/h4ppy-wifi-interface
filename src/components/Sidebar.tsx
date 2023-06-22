@@ -47,10 +47,15 @@ interface SidebarProps {
 }
 
 function SidebarLink({ name, active, icon, link }: SidebarProps) {
+  const toggleSidebar = () => {
+    document.body.setAttribute('data-sidebar', 'false');
+  };
+
   return (
     <Link
       href={link ? '/' + link : '/'}
       className='mt-3 flex items-center gap-3 font-light text-gray-200/70 transition hover:text-gray-200'
+      onClick={toggleSidebar}
     >
       <div
         className='flex h-9 w-9 items-center justify-center rounded-md'
@@ -100,11 +105,15 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
     };
   }, [vantaEffect]);
 
+  const toggleSidebar = () => {
+    document.body.setAttribute('data-sidebar', 'false');
+  };
+
   return (
     <div className='min-h-main flex'>
       <div
-        className='min-h-main p-7'
-        style={{ width: '19.5rem', backgroundColor: '#1A1C20' }}
+        className='sidebar-h-main fixed w-[70vw] p-7 md:relative md:w-[19.5rem]'
+        style={{ backgroundColor: '#1A1C20' }}
       >
         <h3 className='sidebar-header pb-1.5 text-lg font-light text-white/80'>
           General
@@ -181,9 +190,9 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
           link='mith'
         />
       </div>
+      <div className='bg-toggler' onClick={toggleSidebar}></div>
       <div
-        className='min-h-main overflow-y-scroll'
-        style={{ width: 'calc(100vw - 19.5rem)' }}
+        className='min-h-main md:w-[calc(100vw - 19.5rem)] w-screen overflow-y-scroll'
         ref={vantaRef}
       >
         <div className='h-full px-3 py-7 text-gray-100 md:p-9'>{children}</div>

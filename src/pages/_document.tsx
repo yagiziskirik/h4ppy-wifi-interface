@@ -299,7 +299,7 @@ export default function Document() {
           crossOrigin='anonymous'
         />
       </Head>
-      <body>
+      <body data-sidebar='false'>
         <Main />
         <NextScript />
       </body>
