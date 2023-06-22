@@ -581,6 +581,54 @@
   opacity: 0.7;
 }
 
+.card.terminal {
+  height: calc(100vh - 16.7rem);
+  background: linear-gradient(#1e1c14a2, #111417a2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 1rem;
+  border-color: #5d4213;
+  border-width: 0.1px;
+  padding: 0;
+}
+
+.terminal .ter-topbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem 1rem 0 0;
+  background-color: #111417a2;
+}
+
+.terminal .btns {
+  display: flex;
+  padding: 1.5rem;
+  gap: 0.5rem;
+}
+
+.terminal .btns .bbttnn {
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 20px;
+}
+
+.cls-btn {
+  background-color: #ed493a;
+}
+
+.mnm-btn {
+  background-color: #edcc3a;
+}
+
+.full-btn {
+  background-color: #1ebb13;
+}
+
+.xterm-viewport {
+  background: none !important;
+}
+
 /* Fix for typescript rounded-caps error */
 .apexcharts-radial-series path,
 .apexcharts-radialbar-track path {

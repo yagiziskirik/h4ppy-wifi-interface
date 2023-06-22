@@ -24,7 +24,7 @@ import * as THREE from 'three';
 import NET from 'vanta/dist/vanta.net.min';
 
 interface Props {
-  children: ReactElement[];
+  children: ReactElement[] | ReactElement;
   active?:
     | 'dashboard'
     | 'setup'

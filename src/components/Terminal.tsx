@@ -6,6 +6,7 @@
 import { useEffect } from 'react';
 import { type Socket, io } from 'socket.io-client';
 import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
 
 import 'xterm/css/xterm.css';
 let socket: Socket;
@@ -13,7 +14,10 @@ let socket: Socket;
 export default function Term() {
   useEffect(() => {
     const term = new Terminal();
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
     term.open(document.getElementById('terminal') as HTMLElement);
+    fitAddon.fit();
     term.onData((data) => {
       socket.emit('chat message', data);
     });
@@ -37,5 +41,5 @@ export default function Term() {
       socket.disconnect();
     };
   });
-  return <div id='terminal' className='text-left'></div>;
+  return <div id='terminal' className='px-2 pb-1 text-left'></div>;
 }
