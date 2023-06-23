@@ -1,6 +1,6 @@
 # h4ppy-wifi-interface
 
-![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-blue) ![License](https://img.shields.io/badge/Licence-MIT-green) ![Maintenance](https://img.shields.io/maintenance/yes/2023)
+![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-blue) ![License](https://img.shields.io/badge/Licence-MIT-green) ![Maintenance](https://img.shields.io/maintenance/yes/2023) [![wakatime](https://wakatime.com/badge/user/57023045-180c-4f4a-a339-cfc8d3d158c1/project/d382d7ad-8b6a-41f1-a406-50e2db5003e5.svg)](https://wakatime.com/badge/user/57023045-180c-4f4a-a339-cfc8d3d158c1/project/d382d7ad-8b6a-41f1-a406-50e2db5003e5)
 
 Another Wi-Fi penetration testing multi-tool for wide variety of applications.
 

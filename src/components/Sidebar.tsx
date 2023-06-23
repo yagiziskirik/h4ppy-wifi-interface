@@ -5,6 +5,7 @@
 
 import {
   type IconDefinition,
+  faBan,
   faBasketShopping,
   faBuildingWheat,
   faHandshake,
@@ -36,6 +37,7 @@ interface Props {
     | 'plantnleave'
     | 'wifilockdown'
     | 'handshakecollector'
+    | 'wifiblocker'
     | 'maninthehouse';
 }
 
@@ -149,6 +151,12 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
           icon={faHandshake}
           active={active === 'gethandshake'}
           link='handshake'
+        />
+        <SidebarLink
+          name='Wi-Fi Blocker'
+          icon={faBan}
+          active={active === 'wifiblocker'}
+          link='wifiblocker'
         />
         <SidebarLink
           name='Evil Twin Attack'
