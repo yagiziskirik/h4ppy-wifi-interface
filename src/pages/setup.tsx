@@ -48,7 +48,7 @@ export default function TerminalPage() {
       </div>
       <div className='card custom-bg mt-7 p-5'>
         <div className='border-b border-neutral-700'>
-          <nav className='flex space-x-4'>
+          <nav className='no-scrollbar flex space-x-4 overflow-x-scroll'>
             <button
               className={clsx(
                 selTab == 0
