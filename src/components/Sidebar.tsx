@@ -112,7 +112,7 @@ export default function Sidebar({ children, active = 'dashboard' }: Props) {
   return (
     <div className='min-h-main flex'>
       <div
-        className='sidebar-h-main fixed w-[70vw] p-7 md:relative md:w-[19.5rem]'
+        className='sidebar-h-main no-scrollbar fixed w-[70vw] p-7 md:relative md:w-[19.5rem]'
         style={{ backgroundColor: '#1A1C20' }}
       >
         <h3 className='sidebar-header pb-1.5 text-lg font-light text-white/80'>
