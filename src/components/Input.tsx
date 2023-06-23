@@ -16,6 +16,7 @@ interface Props {
   placeholder?: string;
   start?: string;
   hidable?: boolean;
+  autocomplete?: string;
 }
 
 export default function Input({
@@ -25,6 +26,7 @@ export default function Input({
   start,
   changeEvent,
   hidable = false,
+  autocomplete = 'off',
 }: Props) {
   const chgInternal = (e: ChangeEvent<HTMLInputElement>) => {
     changeEvent(e.target.value);
@@ -47,6 +49,7 @@ export default function Input({
           type={hidable && isHidden ? 'password' : 'text'}
           name='inp'
           value={value}
+          autoComplete={autocomplete}
           className={clsx(
             start ? 'pl-8' : 'pl-3',
             hidable ? 'pr-9' : 'pr-3',
