@@ -31,6 +31,10 @@ export default function TerminalPage() {
   const [cardHotspot, setCardHotspot] = useState('Virtual');
   const [securityBehaviour, setSecurityBehaviour] = useState('Kick Device');
   const [overrideBehaviour, setOverrideBehaviour] = useState('Prevent');
+  const [securityInterfaceBehaviour, setSecurityInterfaceBehaviour] =
+    useState('Kick Device');
+  const [securityTryCount, setSecurityTryCount] = useState('3');
+  const [securityPassword, setSecurityPassword] = useState('toorOnSteroids');
   const [deviceLowBattery, setDeviceLowBattery] = useState('Shutdown');
   const [interfaceAnimatedBG, setInterfaceAnimatedBG] = useState('On');
   const [interfaceLoginBG, setInterfaceLoginBG] = useState('On');
@@ -46,7 +50,7 @@ export default function TerminalPage() {
           Save Changes
         </Button>
       </div>
-      <div className='card custom-bg mt-7 p-5'>
+      <div className='card custom-bg mt-7 p-5 pb-7'>
         <div className='border-b border-neutral-700'>
           <nav className='no-scrollbar flex space-x-4 overflow-x-scroll'>
             <button
@@ -54,7 +58,7 @@ export default function TerminalPage() {
                 selTab == 0
                   ? 'border-primary-300 text-primary-300 font-medium'
                   : 'border-transparent text-neutral-500',
-                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 py-2 text-xl'
+                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 pb-2 text-lg md:text-xl'
               )}
               onClick={() => setSelTab(0)}
             >
@@ -65,7 +69,7 @@ export default function TerminalPage() {
                 selTab == 1
                   ? 'border-primary-300 text-primary-300 font-medium'
                   : 'border-transparent text-neutral-500',
-                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 py-2 text-xl'
+                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 pb-2 text-lg md:text-xl'
               )}
               onClick={() => setSelTab(1)}
             >
@@ -76,7 +80,7 @@ export default function TerminalPage() {
                 selTab == 2
                   ? 'border-primary-300 text-primary-300 font-medium'
                   : 'border-transparent text-neutral-500',
-                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 py-2 text-xl'
+                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 pb-2 text-lg md:text-xl'
               )}
               onClick={() => setSelTab(2)}
             >
@@ -87,7 +91,7 @@ export default function TerminalPage() {
                 selTab == 3
                   ? 'border-primary-300 text-primary-300 font-medium'
                   : 'border-transparent text-neutral-500',
-                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 py-2 text-xl'
+                'hover:text-primary-300 inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] px-1 pb-2 text-lg md:text-xl'
               )}
               onClick={() => setSelTab(3)}
             >
@@ -283,6 +287,41 @@ export default function TerminalPage() {
                       placeholder='Override the current job'
                       label='Override the Job'
                       options={['Prevent', 'Ask', 'Override']}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='mt-7'>
+              <div className='flex flex-col md:flex-row'>
+                <div className='w-full pr-4 md:w-2/5'>
+                  <h2 className='text-base'>Interface Security</h2>
+                  <p className='text-sm opacity-80'>
+                    Set interface security options for this interface
+                  </p>
+                </div>
+                <div className='mt-3 w-full md:mt-0 md:w-3/5'>
+                  <div className='flex w-full flex-col items-center gap-4 md:flex-row'>
+                    <Select
+                      selected={securityInterfaceBehaviour}
+                      changeEvt={setSecurityInterfaceBehaviour}
+                      placeholder='When unauthorised access...'
+                      label='Unauthorised Access Behaviour'
+                      options={['Kick Device', 'Hibernate', 'Shutdown']}
+                    />
+                    <Select
+                      selected={securityTryCount}
+                      changeEvt={setSecurityTryCount}
+                      placeholder='x incorrect attemps...'
+                      label='Try Count'
+                      options={['1', '2', '3', '4', '5']}
+                    />
+                    <Input
+                      label='Interface Password'
+                      value={securityPassword}
+                      placeholder='12345678'
+                      changeEvent={setSecurityPassword}
+                      hidable={true}
                     />
                   </div>
                 </div>

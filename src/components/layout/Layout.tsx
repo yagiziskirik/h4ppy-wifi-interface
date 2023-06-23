@@ -3,6 +3,7 @@ import * as React from 'react';
 import Navbar from '../navbar';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const nDate = new Date();
   return (
     <main>
       <section style={{ backgroundColor: '#26282C' }}>
@@ -13,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           style={{ backgroundColor: '#121417' }}
         >
           <p className='text-sm font-light text-neutral-400'>
-            © Copyright 2023, yagiziskirik
+            © Copyright {nDate.getFullYear()}, yagiziskirik
           </p>
         </footer>
       </section>
