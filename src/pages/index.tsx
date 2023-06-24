@@ -12,18 +12,21 @@ import {
   faMicrochip,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 
 import Button from '@/components/buttons/Button';
 import Sidebar from '@/components/Sidebar';
 
+import SettingsType from '@/types/settingsType';
+
 const SystemChart = dynamic(() => import('@/components/SystemChart'), {
   ssr: false,
 });
 
-export default function HomePage() {
+export default function HomePage(data: SettingsType) {
   return (
-    <Sidebar>
+    <Sidebar data={data}>
       <h3 className='glitch' data-text='Dashboard'>
         Dashboard
       </h3>
@@ -148,3 +151,14 @@ export default function HomePage() {
     </Sidebar>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const result = await fetch('http://localhost:3001/settings', {
+    method: 'POST',
+  });
+  const objectData = await result.json();
+
+  return {
+    props: objectData,
+  };
+};

@@ -14,11 +14,14 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GetStaticProps } from 'next';
 import { HiWifi } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
 import Dropdown from '@/components/Dropdown';
 import Sidebar from '@/components/Sidebar';
+
+import SettingsType from '@/types/settingsType';
 
 type DropdownLink = {
   name: string;
@@ -26,7 +29,7 @@ type DropdownLink = {
   clickEvent: () => void;
 };
 
-export default function TerminalPage() {
+export default function WifisAroundPage(data: SettingsType) {
   const ddLinkGenerator = (bssid: string) => {
     const ddItems: DropdownLink[] = [
       {
@@ -92,7 +95,7 @@ export default function TerminalPage() {
   ];
 
   return (
-    <Sidebar active='wifis-around'>
+    <Sidebar data={data} active='wifis-around'>
       <div className='flex items-center justify-between'>
         <h3 className='glitch' data-text='Stations'>
           Stations
@@ -184,3 +187,14 @@ export default function TerminalPage() {
     </Sidebar>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const result = await fetch('http://localhost:3001/settings', {
+    method: 'POST',
+  });
+  const objectData = await result.json();
+
+  return {
+    props: objectData,
+  };
+};

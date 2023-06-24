@@ -5,11 +5,31 @@
 
 const express = require('express'); // eslint-disable-line
 const http = require('http'); // eslint-disable-line
+const jsonParse = require('body-parser').json(); // eslint-disable-line
 const { Server } = require('socket.io'); // eslint-disable-line
 const pty = require('node-pty'); // eslint-disable-line
+const fs = require('fs'); // eslint-disable-line
+const cors = require('cors'); // eslint-disable-line
 
 const app = express();
 const server = http.createServer(app);
+
+app.use(cors());
+
+app.post('/settings', (_, res) => {
+  if (fs.existsSync('settings/general.json')) {
+    const data = fs.readFileSync('settings/general.json', 'utf8');
+    res.status(200).send(JSON.parse(data));
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+app.post('/setsettings', jsonParse, (req, res) => {
+  const data = req.body;
+  fs.writeFileSync('settings/general.json', JSON.stringify(data));
+  res.sendStatus(200);
+});
 
 const io = new Server(server, {
   cors: {

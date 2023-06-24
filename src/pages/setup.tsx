@@ -4,7 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 import clsx from 'clsx';
+import { GetStaticProps } from 'next';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { HiClipboardCheck } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
@@ -14,39 +16,161 @@ import Sidebar from '@/components/Sidebar';
 import Slider from '@/components/Slider';
 import Toggle from '@/components/Toggle';
 
-export default function TerminalPage() {
+import SettingsType from '@/types/settingsType';
+
+function ValidateIPaddress(ipaddress: string) {
+  if (
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
+      ipaddress
+    )
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export default function SetupPage(data: SettingsType) {
   const [selTab, setSelTab] = useState(0);
-  const [wifiName, setWifiName] = useState('h4ppy');
-  const [wifiPwd, setWifiPwd] = useState('toorOnSteroids');
-  const [wifiVisible, setWifiVisible] = useState(false);
-  const [wifiChannel, setWifiChannel] = useState('7');
-  const [wifiIntIP, setWifiIntIP] = useState('192.168.7.1');
-  const [wifiWPA, setWifiWPA] = useState('3');
-  const [wifiWPAKeyMgmt, setWifiWPAKeyMgmt] = useState('WPA-PSK');
-  const [wifiWPAPairwise, setWifiWPAPairwise] = useState('TKIP');
-  const [wifiRSNPairwise, setWifiRSNPairwise] = useState('CCMP');
-  const [cardDefault, setCardDefault] = useState('wlan0');
-  const [cardDeauth, setCardDeauth] = useState('Virtual');
-  const [cardMonitor, setCardMonitor] = useState('Activate When Needed');
-  const [cardHotspot, setCardHotspot] = useState('Virtual');
-  const [securityBehaviour, setSecurityBehaviour] = useState('Kick Device');
-  const [overrideBehaviour, setOverrideBehaviour] = useState('Prevent');
-  const [securityInterfaceBehaviour, setSecurityInterfaceBehaviour] =
-    useState('Kick Device');
-  const [securityTryCount, setSecurityTryCount] = useState('3');
-  const [securityPassword, setSecurityPassword] = useState('toorOnSteroids');
-  const [deviceLowBattery, setDeviceLowBattery] = useState('Shutdown');
-  const [interfaceAnimatedBG, setInterfaceAnimatedBG] = useState('On');
-  const [interfaceLoginBG, setInterfaceLoginBG] = useState('On');
-  const [interfaceZoom, setInterfaceZoom] = useState(10);
+  const [wifiName, setWifiName] = useState(
+    data.wifiName ? data.wifiName : 'h4ppy'
+  );
+  const [wifiPwd, setWifiPwd] = useState(
+    data.wifiPwd ? data.wifiPwd : 'toorOnSteroids'
+  );
+  const [wifiVisible, setWifiVisible] = useState(
+    data.wifiVisible ? data.wifiVisible : false
+  );
+  const [wifiChannel, setWifiChannel] = useState(
+    data.wifiChannel ? data.wifiChannel : '7'
+  );
+  const [wifiIntIP, setWifiIntIP] = useState(
+    data.wifiIntIP ? data.wifiIntIP : '192.168.7.1'
+  );
+  const [wifiWPA, setWifiWPA] = useState(data.wifiWPA ? data.wifiWPA : '3');
+  const [wifiWPAKeyMgmt, setWifiWPAKeyMgmt] = useState(
+    data.wifiWPAKeyMgmt ? data.wifiWPAKeyMgmt : 'WPA-PSK'
+  );
+  const [wifiWPAPairwise, setWifiWPAPairwise] = useState(
+    data.wifiWPAPairwise ? data.wifiWPAPairwise : 'TKIP'
+  );
+  const [wifiRSNPairwise, setWifiRSNPairwise] = useState(
+    data.wifiRSNPairwise ? data.wifiRSNPairwise : 'CCMP'
+  );
+  const [cardDefault, setCardDefault] = useState(
+    data.cardDefault ? data.cardDefault : 'wlan0'
+  );
+  const [cardDeauth, setCardDeauth] = useState(
+    data.cardDeauth ? data.cardDeauth : 'Virtual'
+  );
+  const [cardMonitor, setCardMonitor] = useState(
+    data.cardMonitor ? data.cardMonitor : 'Activate When Needed'
+  );
+  const [cardHotspot, setCardHotspot] = useState(
+    data.cardHotspot ? data.cardHotspot : 'Virtual'
+  );
+  const [securityBehaviour, setSecurityBehaviour] = useState(
+    data.securityBehaviour ? data.securityBehaviour : 'Kick Device'
+  );
+  const [overrideBehaviour, setOverrideBehaviour] = useState(
+    data.overrideBehaviour ? data.overrideBehaviour : 'Prevent'
+  );
+  const [securityInterfaceBehaviour, setSecurityInterfaceBehaviour] = useState(
+    data.securityInterfaceBehaviour
+      ? data.securityInterfaceBehaviour
+      : 'Kick Device'
+  );
+  const [securityTryCount, setSecurityTryCount] = useState(
+    data.securityTryCount ? data.securityTryCount : '3'
+  );
+  const [securityPassword, setSecurityPassword] = useState(
+    data.securityPassword ? data.securityPassword : 'toorOnSteroids'
+  );
+  const [deviceLowBattery, setDeviceLowBattery] = useState(
+    data.deviceLowBattery ? data.deviceLowBattery : 'Shutdown'
+  );
+  const [interfaceAnimatedBG, setInterfaceAnimatedBG] = useState(
+    typeof data.interfaceAnimatedBG !== 'undefined'
+      ? data.interfaceAnimatedBG
+        ? 'On'
+        : 'Off'
+      : 'On'
+  );
+  const [interfaceLoginBG, setInterfaceLoginBG] = useState(
+    typeof data.interfaceLoginBG !== 'undefined'
+      ? data.interfaceLoginBG
+        ? 'On'
+        : 'Off'
+      : 'On'
+  );
+  const [interfaceZoom, setInterfaceZoom] = useState(
+    data.interfaceZoom ? data.interfaceZoom : 10
+  );
+
+  const sendSettings = async () => {
+    if (wifiPwd.length < 8) {
+      toast.error('Wi-Fi password should be longer than 8 characters.');
+      return;
+    }
+    if (wifiName.length === 0) {
+      toast.error("Wi-Fi shouldn't be empty.");
+      return;
+    }
+    if (!ValidateIPaddress(wifiIntIP)) {
+      toast.error('Please provide a valid internal IP address.');
+      return;
+    }
+    if (securityPassword.length === 0) {
+      toast.error("Interface password shouldn't be empty.");
+      return;
+    }
+    toast.promise(
+      fetch('http://localhost:3001/setsettings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          wifiName,
+          wifiPwd,
+          wifiVisible,
+          wifiChannel,
+          wifiIntIP,
+          wifiWPA,
+          wifiWPAKeyMgmt,
+          wifiWPAPairwise,
+          wifiRSNPairwise,
+          cardDefault,
+          cardDeauth,
+          cardMonitor,
+          cardHotspot,
+          securityBehaviour,
+          overrideBehaviour,
+          securityInterfaceBehaviour,
+          securityTryCount,
+          securityPassword,
+          deviceLowBattery,
+          interfaceAnimatedBG: interfaceAnimatedBG === 'On',
+          interfaceLoginBG: interfaceLoginBG === 'On',
+          interfaceZoom,
+        }),
+      }),
+      {
+        loading: 'Saving...',
+        success: 'Saved!',
+        error: 'Server error!',
+      }
+    );
+  };
 
   return (
-    <Sidebar active='setup'>
+    <Sidebar data={data} active='setup'>
       <div className='flex items-center justify-between'>
         <h3 className='glitch' data-text='Setup'>
           Setup
         </h3>
-        <Button leftIcon={HiClipboardCheck} variant='outline'>
+        <Button
+          leftIcon={HiClipboardCheck}
+          onClick={sendSettings}
+          variant='outline'
+        >
           Save Changes
         </Button>
       </div>
@@ -395,3 +519,14 @@ export default function TerminalPage() {
     </Sidebar>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const result = await fetch('http://localhost:3001/settings', {
+    method: 'POST',
+  });
+  const objectData = await result.json();
+
+  return {
+    props: objectData,
+  };
+};
