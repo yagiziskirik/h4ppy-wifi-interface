@@ -24,7 +24,10 @@ import { ReactElement, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import NET from 'vanta/dist/vanta.net.min';
 
+import SettingsType from '@/types/settingsType';
+
 interface Props {
+  data: SettingsType;
   children: ReactElement[] | ReactElement;
   active?:
     | 'dashboard'
@@ -77,35 +80,40 @@ function SidebarLink({ name, active, icon, link }: SidebarProps) {
   );
 }
 
-export default function Sidebar({ children, active = 'dashboard' }: Props) {
+export default function Sidebar({
+  data,
+  children,
+  active = 'dashboard',
+}: Props) {
   const [vantaEffect, setVantaEffect] = useState<typeof NET>(null);
   const vantaRef = useRef(null);
   useEffect(() => {
     if (!vantaEffect) {
-      setVantaEffect(
-        NET({
-          el: vantaRef.current,
-          THREE,
-          mouseControls: false,
-          touchControls: false,
-          gyroControls: false,
-          minHeight: 200.0,
-          minWidth: 200.0,
-          backgroundColor: 0x26282c,
-          color: 0xd5a245,
-          scale: 1.0,
-          scaleMobile: 1.0,
-          points: 10.0,
-          maxDistance: 20.0,
-          spacing: 15.0,
-        })
-      );
+      if (data.interfaceAnimatedBG)
+        setVantaEffect(
+          NET({
+            el: vantaRef.current,
+            THREE,
+            mouseControls: false,
+            touchControls: false,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            backgroundColor: 0x26282c,
+            color: 0xd5a245,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            points: 10.0,
+            maxDistance: 20.0,
+            spacing: 15.0,
+          })
+        );
     }
 
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
-  }, [vantaEffect]);
+  }, [vantaEffect, data.interfaceAnimatedBG]);
 
   const toggleSidebar = () => {
     document.body.setAttribute('data-sidebar', 'false');

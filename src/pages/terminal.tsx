@@ -5,16 +5,19 @@
 
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 
 import NextImage from '@/components/NextImage';
 import Sidebar from '@/components/Sidebar';
 
+import SettingsType from '@/types/settingsType';
+
 const Term = dynamic(() => import('@/components/Terminal'), { ssr: false });
 
-export default function TerminalPage() {
+export default function TerminalPage(data: SettingsType) {
   return (
-    <Sidebar active='terminal'>
+    <Sidebar data={data} active='terminal'>
       <h3 className='glitch' data-text='Terminal'>
         Terminal
       </h3>
@@ -49,3 +52,14 @@ export default function TerminalPage() {
     </Sidebar>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const result = await fetch('http://localhost:3001/settings', {
+    method: 'POST',
+  });
+  const objectData = await result.json();
+
+  return {
+    props: objectData,
+  };
+};
