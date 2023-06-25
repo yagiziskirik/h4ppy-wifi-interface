@@ -14,27 +14,118 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { type Socket, io } from 'socket.io-client';
 
 import Button from '@/components/buttons/Button';
+import Modal from '@/components/modal';
 import Sidebar from '@/components/Sidebar';
 
 import SettingsType from '@/types/settingsType';
+
+let socket: Socket;
 
 const SystemChart = dynamic(() => import('@/components/SystemChart'), {
   ssr: false,
 });
 
+interface OsuType {
+  cpu: number;
+  ram: number;
+  strg: number;
+  battery: number;
+  uptime: number;
+}
+
+interface ModalType {
+  title?: string;
+  prompt?: string;
+  confirmButton?: string;
+  denyButton?: string;
+  clickAction: () => void;
+}
+
+const secondsParser = (seconds: number) => {
+  const days = Math.floor(seconds / 86400);
+  const d = new Date(seconds * 1000).toISOString().slice(11, 19);
+  if (days < 1) return d;
+  return `${days}d ${d}`;
+};
+
 export default function HomePage(data: SettingsType) {
+  const [cpuUsage, setCpuUsage] = useState(0);
+  const [ramUsage, setRamUsage] = useState(0);
+  const [storageUsage, setStorageUsage] = useState(0);
+  const [batteryPerc, setBatteryPerc] = useState(100);
+  const [uptime, setUptime] = useState(0);
+  useEffect(() => {
+    const socketInitializer = async () => {
+      socket = io('http://localhost:3001');
+
+      socket.on('osu message', (data: OsuType) => {
+        setCpuUsage(data.cpu);
+        setRamUsage(data.ram);
+        setStorageUsage(data.ram);
+        setBatteryPerc(data.battery);
+        setUptime(data.uptime);
+      });
+    };
+
+    socketInitializer();
+
+    socket.emit('request osu', 'fetch');
+
+    return () => {
+      socket.disconnect();
+    };
+  });
+  // Modal Properties
+  const [modalActive, setModalActive] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalPrompt, setModalPrompt] = useState('');
+  const [modalConfirmButton, setModalConfirmButton] = useState('');
+  const [modalDenyButton, setModalDenyButton] = useState('');
+  const [modalFunction, setModalFunction] = useState(() => () => {}); //eslint-disable-line
+
+  const showModal = ({
+    title = 'Just Checking',
+    prompt = 'Are you sure?',
+    confirmButton = 'YES',
+    denyButton = 'NO',
+    clickAction,
+  }: ModalType) => {
+    setModalTitle(title);
+    setModalPrompt(prompt);
+    setModalConfirmButton(confirmButton);
+    setModalDenyButton(denyButton);
+    setModalFunction(clickAction);
+    setModalActive(true);
+  };
+
+  const testFunc = (val: string) => () => {
+    toast.success(val);
+  };
+
   return (
     <Sidebar data={data}>
+      <Modal
+        title={modalTitle}
+        prompt={modalPrompt}
+        confirmButton={modalConfirmButton}
+        denyButton={modalDenyButton}
+        clickAction={modalFunction}
+        isActive={modalActive}
+        setIsActive={setModalActive}
+      />
       <h3 className='glitch' data-text='Dashboard'>
         Dashboard
       </h3>
       <div className='mt-6 grid grid-cols-2 grid-rows-2 gap-4 md:mt-7 md:grid-cols-4 md:grid-rows-1 md:gap-7'>
-        <SystemChart val={13} name='CPU' />
-        <SystemChart val={22} name='RAM' />
-        <SystemChart val={55} name='Storage' />
-        <SystemChart val={77} name='Battery' />
+        <SystemChart val={cpuUsage} name='CPU' />
+        <SystemChart val={ramUsage} name='RAM' />
+        <SystemChart val={storageUsage} name='Storage' />
+        <SystemChart val={batteryPerc} name='Battery' />
       </div>
       <div className='mt-4 grid grid-cols-1 grid-rows-2 gap-4 md:mt-7 md:grid-cols-2 md:grid-rows-1 md:gap-7'>
         <div className='card custom-bg p-7'>
@@ -76,7 +167,16 @@ export default function HomePage(data: SettingsType) {
               ◦ E3:C8:15:32:6C:42 -{' '}
               <span className='opacity-80'>Max's iPhone</span>
             </div>
-            <Button variant='outline'>
+            <Button
+              variant='outline'
+              onClick={() =>
+                showModal({
+                  prompt: "Are sure you want to kick Max's iPhone?",
+                  clickAction: () =>
+                    testFunc("Max's iPhone has been successfully kicked"),
+                })
+              }
+            >
               Kick
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
@@ -89,7 +189,16 @@ export default function HomePage(data: SettingsType) {
             <div>
               ◦ C4:46:EB:A1:FA:16 - <span className='opacity-80'>h4ck3r</span>
             </div>
-            <Button variant='outline'>
+            <Button
+              variant='outline'
+              onClick={() =>
+                showModal({
+                  prompt: 'Are sure you want to kick h4ck3r?',
+                  clickAction: () =>
+                    testFunc('h4ck3r has been successfully kicked'),
+                })
+              }
+            >
               Kick
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
@@ -114,7 +223,7 @@ export default function HomePage(data: SettingsType) {
             <h3 className='text-xl font-normal md:text-2xl'>Uptime</h3>
           </div>
           <h1 className='mt-5 text-center font-bold opacity-80' id='uptime'>
-            00:00:00
+            {secondsParser(uptime)}
           </h1>
         </div>
         <div className='card custom-bg p-7'>
@@ -136,12 +245,18 @@ export default function HomePage(data: SettingsType) {
             <Button
               variant='primary'
               className='flex w-1/2 justify-center border-yellow-500 bg-yellow-500 text-center text-black transition hover:border-yellow-400 hover:bg-yellow-400 hover:text-black active:border-yellow-600 active:bg-yellow-600'
+              onClick={() =>
+                showModal({ clickAction: () => testFunc('Restarted') })
+              }
             >
-              Check Updates
+              Restart
             </Button>
             <Button
               variant='primary'
               className='flex w-1/2 justify-center border-red-500 bg-red-500 text-center transition hover:border-red-400 hover:bg-red-400 active:border-red-600 active:bg-red-600'
+              onClick={() =>
+                showModal({ clickAction: () => testFunc('Powered off') })
+              }
             >
               Power Off
             </Button>

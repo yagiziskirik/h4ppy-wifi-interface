@@ -23,13 +23,7 @@ export default function Term() {
     });
 
     const socketInitializer = async () => {
-      // await fetch('http://localhost:3001');
       socket = io('http://localhost:3001');
-
-      // socket.on('connect', () => {
-      //   console.log('connected');
-      // });
-
       socket.on('terminal message', (data: string) => {
         term.write(data);
       });
