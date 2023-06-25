@@ -19,6 +19,6 @@
   "securityPassword": "toorOnSteroids",
   "deviceLowBattery": "Shutdown",
   "interfaceAnimatedBG": false,
-  "interfaceLoginBG": false,
+  "interfaceLoginBG": true,
   "interfaceZoom": 10
 }

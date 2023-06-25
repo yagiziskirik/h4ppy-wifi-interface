@@ -10,6 +10,8 @@ const { Server } = require('socket.io'); // eslint-disable-line
 const pty = require('node-pty'); // eslint-disable-line
 const fs = require('fs'); // eslint-disable-line
 const cors = require('cors'); // eslint-disable-line
+const osu = require('node-os-utils'); // eslint-disable-line
+const si = require('systeminformation'); // eslint-disable-line
 
 const app = express();
 const server = http.createServer(app);
@@ -50,6 +52,20 @@ io.on('connection', (socket) => {
   io.emit('terminal message', lastMessage);
   socket.on('chat message', (msg) => {
     ptyProcess.write(msg);
+  });
+  socket.on('request osu', async (_) => {
+    const cpu = await osu.cpu.usage();
+    const ram = await osu.mem.used();
+    const strg = await osu.drive.used();
+    const uptime = osu.os.uptime();
+    const battery = await si.battery();
+    io.emit('osu message', {
+      cpu,
+      ram: Math.round((ram.usedMemMb / ram.totalMemMb) * 10000) / 100,
+      strg: parseFloat(strg.usedPercentage),
+      uptime,
+      battery: battery.percent,
+    });
   });
 });
 
