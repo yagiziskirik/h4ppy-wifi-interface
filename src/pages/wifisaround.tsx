@@ -14,6 +14,7 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import { GetStaticProps } from 'next';
 import { HiWifi } from 'react-icons/hi';
 
@@ -77,6 +78,7 @@ export default function WifisAroundPage(data: SettingsType) {
     ];
     return ddItems;
   };
+
   const wifis = [
     {
       essid: 'Super-Wifi',
@@ -91,6 +93,14 @@ export default function WifisAroundPage(data: SettingsType) {
       pwr: 73,
       enc: 'WPA2',
       ch: 9,
+    },
+  ];
+
+  const clients = [
+    {
+      bssid: '14:fc:1a:bf:42:7b',
+      power: 42,
+      connectedTo: '43:a2:76:fb:ac:1d',
     },
   ];
 
@@ -157,7 +167,19 @@ export default function WifisAroundPage(data: SettingsType) {
                   <tbody className='divide-y divide-neutral-700'>
                     {wifis.map((wifi) => (
                       <tr key={wifi.bssid}>
-                        <td className='whitespace-nowrap px-6 py-4 text-sm font-medium text-neutral-200'>
+                        <td
+                          className={clsx(
+                            clients.filter(
+                              ({ connectedTo }) => connectedTo === wifi.bssid
+                            ).length > 0
+                              ? 'text-primary-300'
+                              : 'text-neutral-200',
+                            'whitespace-nowrap px-6 py-4 text-sm font-medium'
+                          )}
+                        >
+                          {clients.filter(
+                            ({ connectedTo }) => connectedTo === wifi.bssid
+                          ).length > 0 && '* '}
                           {wifi.essid}
                         </td>
                         <td className='whitespace-nowrap px-6 py-4 text-sm text-neutral-200'>

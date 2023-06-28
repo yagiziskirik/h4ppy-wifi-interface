@@ -41,7 +41,8 @@ interface Props {
     | 'wifilockdown'
     | 'handshakecollector'
     | 'wifiblocker'
-    | 'maninthehouse';
+    | 'maninthehouse'
+    | '404';
 }
 
 interface SidebarProps {

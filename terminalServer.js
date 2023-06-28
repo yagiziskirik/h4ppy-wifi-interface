@@ -16,7 +16,7 @@ const si = require('systeminformation'); // eslint-disable-line
 const app = express();
 const server = http.createServer(app);
 
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 app.post('/settings', (_, res) => {
   if (fs.existsSync('settings/general.json')) {
@@ -35,7 +35,7 @@ app.post('/setsettings', jsonParse, (req, res) => {
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 });

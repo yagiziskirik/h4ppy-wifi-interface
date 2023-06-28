@@ -21,6 +21,9 @@ import Sidebar from '@/components/Sidebar';
 
 import SettingsType from '@/types/settingsType';
 
+const ChartElement = dynamic(() => import('@/components/ChartElement'), {
+  ssr: false,
+});
 const GaugeComponent = dynamic(() => import('react-gauge-component'), {
   ssr: false,
 });
@@ -34,6 +37,9 @@ export default function WifisAroundPage(data: SettingsType) {
   const [compSuccessRate, setCompSuccesRate] = useState(0);
   const [selectedWifi, setSelectedWifi] = useState('');
   const [isCompare, setIsCompare] = useState(false);
+
+  const [wifiSignalHistory, setWifiSignalHistory] = useState<number[]>([]);
+  const [clientSignalHistory, setClientSignalHistory] = useState<number[]>([]);
 
   // Seeds for chart refresh
   const [seed1, setSeed1] = useState(1);
@@ -56,6 +62,16 @@ export default function WifisAroundPage(data: SettingsType) {
       if (selectedWifi !== '') {
         const newWifiSignal = Math.round(Math.random() * 100);
         const newClientSignal = Math.round(Math.random() * 100);
+        setWifiSignalHistory((wifiSignalHistory) =>
+          wifiSignalHistory.length > 11
+            ? [...wifiSignalHistory.slice(1, 12), newWifiSignal]
+            : [...wifiSignalHistory, newWifiSignal]
+        );
+        setClientSignalHistory((clientSignalHistory) =>
+          clientSignalHistory.length > 11
+            ? [...clientSignalHistory.slice(1, 12), newClientSignal]
+            : [...clientSignalHistory, newClientSignal]
+        );
         setWifiSignal(newWifiSignal);
         setClientSignal(newClientSignal);
         setSuccesRate(calculateSuccessRate(newWifiSignal, newClientSignal));
@@ -397,6 +413,22 @@ export default function WifisAroundPage(data: SettingsType) {
               </div>
             </div>
           )}
+        </div>
+      </div>
+      <div className='card custom-bg my-7 p-5'>
+        <div className='grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1'>
+          <div>
+            <h3 className='text-primary-300 -mb-5 ml-4 mt-2 md:ml-8 md:mt-4'>
+              Wi-Fi Signal
+            </h3>
+            <ChartElement incData={wifiSignalHistory} />
+          </div>
+          <div>
+            <h3 className='text-primary-300 -mb-5 ml-4 mt-2 md:ml-8 md:mt-4'>
+              Client Signal
+            </h3>
+            <ChartElement incData={clientSignalHistory} />
+          </div>
         </div>
       </div>
     </Sidebar>
