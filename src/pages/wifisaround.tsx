@@ -102,6 +102,16 @@ export default function WifisAroundPage(data: SettingsType) {
       power: 42,
       connectedTo: '43:a2:76:fb:ac:1d',
     },
+    {
+      bssid: '51:cf:42:4d:76:ff',
+      power: 49,
+      connectedTo: '43:a2:76:fb:ac:1d',
+    },
+    {
+      bssid: '14:fc:1a:bf:42:7f',
+      power: 74,
+      connectedTo: '43:a2:76:fb:ac:1c',
+    },
   ];
 
   return (
@@ -182,7 +192,7 @@ export default function WifisAroundPage(data: SettingsType) {
                           ).length > 0 && '* '}
                           {wifi.essid}
                         </td>
-                        <td className='whitespace-nowrap px-6 py-4 text-sm text-neutral-200'>
+                        <td className='whitespace-nowrap px-6 py-4 text-sm uppercase text-neutral-200'>
                           {wifi.bssid}
                         </td>
                         <td className='whitespace-nowrap px-6 py-4 text-sm text-neutral-200'>
@@ -196,6 +206,71 @@ export default function WifisAroundPage(data: SettingsType) {
                         </td>
                         <td className='flex items-center justify-end gap-1.5 whitespace-nowrap px-6 py-4 text-sm font-medium'>
                           <Dropdown links={ddLinkGenerator(wifi.bssid)} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='card custom-bg mt-7 p-5'>
+        <div className='text-primary-300 flex items-center gap-3'>
+          <FontAwesomeIcon icon={faHouseSignal} width={20} />
+          <h3 className='text-xl font-normal md:text-2xl'>Client's List</h3>
+        </div>
+        <div className='mt-5 flex flex-col'>
+          <div className='-m-1.5'>
+            <div className='inline-block min-w-full p-1.5 align-middle'>
+              <div className='rounded-lg border border-neutral-700 shadow shadow-neutral-900'>
+                <table className='min-w-full divide-y divide-neutral-700'>
+                  <thead className='bg-neutral-700'>
+                    <tr>
+                      <th
+                        scope='col'
+                        className='px-6 py-3 text-left text-xs font-medium uppercase text-neutral-300'
+                      >
+                        BSSID
+                      </th>
+                      <th
+                        scope='col'
+                        className='px-6 py-3 text-left text-xs font-medium uppercase text-neutral-300'
+                      >
+                        CONNECTED TO
+                      </th>
+                      <th
+                        scope='col'
+                        className='px-6 py-3 text-left text-xs font-medium uppercase text-neutral-300'
+                      >
+                        POWER
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className='divide-y divide-neutral-700'>
+                    {clients.map((client) => (
+                      <tr key={client.bssid}>
+                        <td
+                          className={clsx(
+                            wifis.filter(
+                              ({ bssid }) => bssid === client.connectedTo
+                            ).length > 0
+                              ? 'text-primary-300'
+                              : 'text-neutral-200',
+                            'whitespace-nowrap px-6 py-4 text-sm font-medium uppercase'
+                          )}
+                        >
+                          {wifis.filter(
+                            ({ bssid }) => bssid === client.connectedTo
+                          ).length > 0 && '* '}
+                          {client.bssid}
+                        </td>
+                        <td className='whitespace-nowrap px-6 py-4 text-sm uppercase text-neutral-200'>
+                          {client.connectedTo}
+                        </td>
+                        <td className='whitespace-nowrap px-6 py-4 text-sm text-neutral-200'>
+                          {client.power}%
                         </td>
                       </tr>
                     ))}
