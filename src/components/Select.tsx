@@ -11,6 +11,7 @@ interface Props {
   label: string;
   placeholder: string;
   options: string[];
+  disabled?: boolean;
 }
 
 export default function Select({
@@ -19,6 +20,7 @@ export default function Select({
   placeholder,
   options,
   changeEvt,
+  disabled = false,
 }: Props) {
   const changeEv = (e: ChangeEvent<HTMLSelectElement>) => {
     changeEvt(e.target.value);
@@ -33,6 +35,7 @@ export default function Select({
         onChange={changeEv}
         className='focus:ring-primary-300 block w-full rounded-md border-0 bg-neutral-900/40 px-3 py-1.5 text-neutral-100 ring-1 ring-inset ring-neutral-300 placeholder:text-neutral-500 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6'
         value={selected}
+        disabled={disabled}
       >
         <option disabled value=''>
           {placeholder}

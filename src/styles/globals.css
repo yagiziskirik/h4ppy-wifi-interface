@@ -690,6 +690,10 @@
   padding: 0;
 }
 
+.card.full-screen {
+  height: calc(100vh - 16.7rem);
+}
+
 @media (max-width: 768px) {
   .card.terminal {
     height: calc(100vh - 14.7rem);
