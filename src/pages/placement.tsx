@@ -227,6 +227,9 @@ export default function WifisAroundPage(data: SettingsType) {
             </p>
           </div>
         </div>
+      </div>
+
+      <div className='card custom-bg mt-7 p-5'>
         <div
           className={clsx(
             isCompare
@@ -415,16 +418,18 @@ export default function WifisAroundPage(data: SettingsType) {
           )}
         </div>
       </div>
-      <div className='card custom-bg my-7 p-5'>
-        <div className='grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1'>
-          <div>
+      <div className='mb-7 mt-7 grid grid-cols-1 grid-rows-2 gap-7 md:grid-cols-2 md:grid-rows-1'>
+        <div className='card custom-bg p-5'>
+          <div className='-pb-10'>
             <h3 className='text-primary-300 -mb-5 ml-4 mt-2 md:ml-8 md:mt-4'>
               Wi-Fi Signal
             </h3>
             <ChartElement incData={wifiSignalHistory} />
           </div>
-          <div>
-            <h3 className='text-primary-300 -mb-5 ml-4 mt-2 md:ml-8 md:mt-4'>
+        </div>
+        <div className='card custom-bg p-5'>
+          <div className='-pb-10'>
+            <h3 className='text-primary-300 -mb-5 ml-4 mt-0 md:ml-8 md:mt-4'>
               Client Signal
             </h3>
             <ChartElement incData={clientSignalHistory} />
