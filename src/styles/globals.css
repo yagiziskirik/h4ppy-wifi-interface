@@ -616,11 +616,51 @@
   }
 }
 
+.divider {
+  @apply bg-neutral-600;
+  width: 100%;
+  height: 1px;
+}
+
 .custom-bg {
   background-color: #1a1c2082 !important;
   border: none;
   backdrop-filter: blur(3px) !important;
   -webkit-backdrop-filter: blur(3px) !important;
+}
+
+.shimmer {
+  position: relative;
+}
+
+.shimmer::after {
+  @apply rounded-full;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.5)
+  );
+  animation: 2s shimmerAnimation infinite;
+  transform-origin: left;
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    transform: scaleX(0%);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(100%);
+    opacity: 0;
+  }
 }
 
 .custom-toggle:checked ~ .dot {

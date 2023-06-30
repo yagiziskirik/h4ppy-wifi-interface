@@ -20,6 +20,7 @@ import { type Socket, io } from 'socket.io-client';
 
 import Button from '@/components/buttons/Button';
 import Modal from '@/components/modal';
+import Progress from '@/components/Progress';
 import Sidebar from '@/components/Sidebar';
 
 import SettingsType from '@/types/settingsType';
@@ -145,12 +146,7 @@ export default function HomePage(data: SettingsType) {
             <li>None</li>
           </ul>
           <p className='classy-underline mt-4 !opacity-90'>Progress</p>
-          <div className='mt-4 h-2.5 w-full rounded-full bg-neutral-700'>
-            <div
-              className='bg-primary-300 h-2.5 rounded-full'
-              style={{ width: '40%' }}
-            ></div>
-          </div>
+          <Progress percentage={40} className='mt-4' />
           <div className='mt-2 flex items-center justify-between'>
             <p className='font-semibold !opacity-90'>Idle</p>
             <p>None in progress...</p>
