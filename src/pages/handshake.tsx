@@ -22,7 +22,7 @@ const GaugeComponent = dynamic(() => import('react-gauge-component'), {
   ssr: false,
 });
 
-export default function TerminalPage(data: SettingsType) {
+export default function GetHandshakePage(data: SettingsType) {
   const [selectedStation, setSelectedStation] = useState('');
   const [stationList, setStationList] = useState<string[]>([]);
   const [isStart, setIsStart] = useState(false);

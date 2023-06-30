@@ -28,7 +28,7 @@ const GaugeComponent = dynamic(() => import('react-gauge-component'), {
   ssr: false,
 });
 
-export default function WifisAroundPage(data: SettingsType) {
+export default function PlacementPage(data: SettingsType) {
   const [wifiSignal, setWifiSignal] = useState(0);
   const [clientSignal, setClientSignal] = useState(0);
   const [successRate, setSuccesRate] = useState(0);
