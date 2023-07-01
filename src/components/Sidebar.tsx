@@ -110,11 +110,16 @@ export default function Sidebar({
           })
         );
     }
+    if (data.interfaceZoom)
+      document.documentElement.style.setProperty(
+        '--zoom-amount',
+        `${data.interfaceZoom / 10}`
+      );
 
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
-  }, [vantaEffect, data.interfaceAnimatedBG]);
+  }, [vantaEffect, data.interfaceAnimatedBG, data.interfaceZoom]);
 
   const toggleSidebar = () => {
     document.body.setAttribute('data-sidebar', 'false');

@@ -5,6 +5,7 @@
 
 import clsx from 'clsx';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { HiClipboardCheck } from 'react-icons/hi';
@@ -30,6 +31,12 @@ function ValidateIPaddress(ipaddress: string) {
 }
 
 export default function SetupPage(data: SettingsType) {
+  const router = useRouter();
+
+  const refreshPage = () => {
+    router.refresh();
+  };
+
   const [selTab, setSelTab] = useState(0);
   const [wifiName, setWifiName] = useState(
     data.wifiName ? data.wifiName : 'h4ppy'
@@ -123,7 +130,7 @@ export default function SetupPage(data: SettingsType) {
       toast.error("Interface password shouldn't be empty.");
       return;
     }
-    toast.promise(
+    await toast.promise(
       fetch('http://localhost:3001/setsettings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -158,6 +165,9 @@ export default function SetupPage(data: SettingsType) {
         error: 'Server error!',
       }
     );
+    setTimeout(() => {
+      refreshPage();
+    }, 3000);
   };
 
   return (
