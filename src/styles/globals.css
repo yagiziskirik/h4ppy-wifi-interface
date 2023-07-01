@@ -26,6 +26,7 @@
   --color-primary-800: rgb(var(--tw-color-primary-800)); /* #934719 */
   --color-primary-900: rgb(var(--tw-color-primary-900)); /* #773d17 */
   --color-primary-950: rgb(var(--tw-color-primary-950)); /* #401d0a */
+  --zoom-amount: 1;
   /* #endregion  /**======== Primary Color =========== */
 }
 
@@ -513,6 +514,7 @@
   body,
   .p {
     @apply font-primary text-sm md:text-base;
+    zoom: var(--zoom-amount);
   }
   /* #endregion  /**======== Typography =========== */
 
