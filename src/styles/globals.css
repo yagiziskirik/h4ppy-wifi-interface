@@ -618,6 +618,38 @@
   }
 }
 
+/* Date picker style */
+.react-datepicker__header {
+  @apply !bg-neutral-900;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header {
+  @apply !text-neutral-200;
+}
+
+.react-datepicker__month,
+.react-datepicker__month-container {
+  @apply !bg-neutral-800;
+}
+
+.react-datepicker__day {
+  @apply !text-neutral-200;
+}
+
+.react-datepicker__day-name {
+  @apply !text-neutral-300;
+}
+
+.react-datepicker__time-list-item {
+  @apply !bg-neutral-800 !text-neutral-200;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__time-list-item--selected {
+  @apply !bg-primary-300 hover:bg-primary-200 !text-white;
+}
+
 .divider {
   @apply bg-neutral-600;
   width: 100%;
