@@ -27,8 +27,12 @@ export default function GetHandshakePage(data: SettingsType) {
   const [stationList, setStationList] = useState<string[]>([]);
   const [isStart, setIsStart] = useState(false);
   const [currentStatus, setCurrentStatus] = useState('Starting...');
-  const [method, setMethod] = useState('Aireplay');
-  const [tOut, setTOut] = useState('20');
+  const [method, setMethod] = useState(
+    data.cardDefaultHandshake ? data.cardDefaultHandshake : 'Aireplay'
+  );
+  const [tOut, setTOut] = useState(
+    data.cardHandshakeTimeout ? data.cardHandshakeTimeout : '20'
+  );
   return (
     <Sidebar data={data} active='gethandshake'>
       <div className='flex items-center justify-between'>

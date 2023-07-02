@@ -69,6 +69,12 @@ export default function SetupPage(data: SettingsType) {
   const [cardDeauth, setCardDeauth] = useState(
     data.cardDeauth ? data.cardDeauth : 'Virtual'
   );
+  const [cardDefaultHandshake, setCardDefaultHandshake] = useState(
+    data.cardDefaultHandshake ? data.cardDefaultHandshake : 'Aireplay'
+  );
+  const [cardHandshakeTimeout, setCardHandshakeTimeout] = useState(
+    data.cardHandshakeTimeout ? data.cardHandshakeTimeout : '20'
+  );
   const [cardMonitor, setCardMonitor] = useState(
     data.cardMonitor ? data.cardMonitor : 'Activate When Needed'
   );
@@ -148,6 +154,8 @@ export default function SetupPage(data: SettingsType) {
           cardDeauth,
           cardMonitor,
           cardHotspot,
+          cardDefaultHandshake,
+          cardHandshakeTimeout,
           securityBehaviour,
           overrideBehaviour,
           securityInterfaceBehaviour,
@@ -207,7 +215,7 @@ export default function SetupPage(data: SettingsType) {
               )}
               onClick={() => setSelTab(1)}
             >
-              Card
+              Card & Monitor
             </button>
             <button
               className={clsx(
@@ -355,6 +363,37 @@ export default function SetupPage(data: SettingsType) {
                       placeholder='Deauth Card'
                       label='Card for Deauth'
                       options={['Virtual', 'wlan1']}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='mt-7'>
+              <div className='flex flex-col md:flex-row'>
+                <div className='w-full pr-4 md:w-2/5'>
+                  <h2 className='text-base'>Handshake Values</h2>
+                  <p className='text-sm opacity-80'>
+                    Default values for getting handshake
+                  </p>
+                </div>
+                <div className='mt-3 w-full md:mt-0 md:w-3/5'>
+                  <div className='flex w-full flex-col items-center gap-4 md:flex-row'>
+                    <Select
+                      selected={cardDefaultHandshake}
+                      changeEvt={setCardDefaultHandshake}
+                      placeholder='Default Handshake Method'
+                      label='Handshake Method'
+                      options={[
+                        'Amok MD4',
+                        'Aireplay',
+                        'WIDS / WIPS / WPS Confussion',
+                      ]}
+                    />
+                    <Input
+                      label='Handshake Timeout'
+                      value={cardHandshakeTimeout}
+                      placeholder='20'
+                      changeEvent={setCardHandshakeTimeout}
                     />
                   </div>
                 </div>
