@@ -11,15 +11,18 @@ import {
   faHouseSignal,
   faLocationCrosshairs,
   faPeopleArrows,
+  faSearch,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
 import { HiWifi } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
 import Dropdown from '@/components/Dropdown';
+import Input from '@/components/Input';
 import Sidebar from '@/components/Sidebar';
 
 import SettingsType from '@/types/settingsType';
@@ -30,7 +33,26 @@ type DropdownLink = {
   clickEvent: () => void;
 };
 
+type ClientType = {
+  bssid: string;
+  power: number;
+  connectedTo: string;
+};
+
+type StationType = {
+  essid: string;
+  bssid: string;
+  pwr: number;
+  enc: string;
+  ch: number;
+};
+
 export default function WifisAroundPage(data: SettingsType) {
+  const [searchClients, setSearchClients] = useState('');
+  const [filteredClients, setFilteredClients] = useState<ClientType[]>([]);
+  const [searchStations, setSearchStations] = useState('');
+  const [filteredStations, setFilteredStations] = useState<StationType[]>([]);
+
   const ddLinkGenerator = (bssid: string) => {
     const ddItems: DropdownLink[] = [
       {
@@ -114,6 +136,33 @@ export default function WifisAroundPage(data: SettingsType) {
     },
   ];
 
+  useEffect(() => {
+    if (searchClients === '') {
+      setFilteredClients(clients);
+    } else {
+      let t = [...clients];
+      t = t.filter((q) =>
+        JSON.stringify(q).toLowerCase().includes(searchClients.toLowerCase())
+      );
+      setFilteredClients(t);
+    }
+  }, [searchClients]); //eslint-disable-line
+
+  useEffect(() => {
+    let t = [...wifis];
+    t = t.sort((a, b) => {
+      return b.pwr - a.pwr;
+    });
+    if (searchStations === '') {
+      setFilteredStations(t);
+    } else {
+      t = t.filter((q) =>
+        JSON.stringify(q).toLowerCase().includes(searchStations.toLowerCase())
+      );
+      setFilteredStations(t);
+    }
+  }, [searchStations]); //eslint-disable-line
+
   return (
     <Sidebar data={data} active='wifis-around'>
       <div className='flex items-center justify-between'>
@@ -125,9 +174,19 @@ export default function WifisAroundPage(data: SettingsType) {
         </Button>
       </div>
       <div className='card custom-bg mt-7 p-5'>
-        <div className='text-primary-300 flex items-center gap-3'>
-          <FontAwesomeIcon icon={faHouseSignal} width={20} />
-          <h3 className='text-xl font-normal md:text-2xl'>Client's List</h3>
+        <div className='flex w-full items-center justify-between'>
+          <div className='text-primary-300 flex items-center gap-3'>
+            <FontAwesomeIcon icon={faHouseSignal} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>Client's List</h3>
+          </div>
+          <Input
+            className='w-52'
+            value={searchClients}
+            changeEvent={setSearchClients}
+            startIcon={faSearch}
+            placeholder='Search clients...'
+            fullWidth={false}
+          />
         </div>
         <div className='mt-5 flex flex-col'>
           <div className='-m-1.5'>
@@ -157,7 +216,7 @@ export default function WifisAroundPage(data: SettingsType) {
                     </tr>
                   </thead>
                   <tbody className='divide-y divide-neutral-700'>
-                    {clients.map((client) => (
+                    {filteredClients.map((client) => (
                       <tr key={client.bssid}>
                         <td
                           className={clsx(
@@ -190,9 +249,19 @@ export default function WifisAroundPage(data: SettingsType) {
         </div>
       </div>
       <div className='card custom-bg mt-7 p-5'>
-        <div className='text-primary-300 flex items-center gap-3'>
-          <FontAwesomeIcon icon={faHouseSignal} width={20} />
-          <h3 className='text-xl font-normal md:text-2xl'>Wi-Fi List</h3>
+        <div className='flex items-center justify-between'>
+          <div className='text-primary-300 flex items-center gap-3'>
+            <FontAwesomeIcon icon={faHouseSignal} width={20} />
+            <h3 className='text-xl font-normal md:text-2xl'>Wi-Fi List</h3>
+          </div>
+          <Input
+            className='w-52'
+            value={searchStations}
+            changeEvent={setSearchStations}
+            startIcon={faSearch}
+            placeholder='Search stations...'
+            fullWidth={false}
+          />
         </div>
         <div className='mt-5 flex flex-col'>
           <div className='-m-1.5'>
@@ -240,7 +309,7 @@ export default function WifisAroundPage(data: SettingsType) {
                     </tr>
                   </thead>
                   <tbody className='divide-y divide-neutral-700'>
-                    {wifis.map((wifi) => (
+                    {filteredStations.map((wifi) => (
                       <tr key={wifi.bssid}>
                         <td
                           className={clsx(

@@ -3,20 +3,27 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {
+  type IconDefinition,
+  faEye,
+  faEyeSlash,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
 import { ChangeEvent } from 'react';
 import { useState } from 'react';
 
 interface Props {
-  label: string;
+  label?: string;
   value?: string;
   changeEvent: (str: string) => void;
   placeholder?: string;
   start?: string;
   hidable?: boolean;
   autocomplete?: string;
+  fullWidth?: boolean;
+  startIcon?: IconDefinition;
+  className?: string;
 }
 
 export default function Input({
@@ -27,6 +34,9 @@ export default function Input({
   changeEvent,
   hidable = false,
   autocomplete = 'off',
+  fullWidth = true,
+  startIcon,
+  className,
 }: Props) {
   const chgInternal = (e: ChangeEvent<HTMLInputElement>) => {
     changeEvent(e.target.value);
@@ -35,14 +45,26 @@ export default function Input({
   const [isHidden, setIsHidden] = useState(true);
 
   return (
-    <div className='w-full'>
-      <label className='block text-sm font-medium leading-6 text-gray-200'>
-        {label}
-      </label>
+    <div className={clsx(fullWidth && 'w-full')}>
+      {label && (
+        <label className='block text-sm font-medium leading-6 text-gray-200'>
+          {label}
+        </label>
+      )}
       <div className='relative mt-2 rounded-md shadow-sm'>
         {start && (
           <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
             <span className='text-neutral-500 sm:text-sm'>{start}</span>
+          </div>
+        )}
+        {startIcon && (
+          <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
+            <FontAwesomeIcon
+              icon={startIcon}
+              className='text-neutral-500'
+              width={13}
+              height={15}
+            />
           </div>
         )}
         <input
@@ -51,7 +73,8 @@ export default function Input({
           value={value}
           autoComplete={autocomplete}
           className={clsx(
-            start ? 'pl-8' : 'pl-3',
+            className && className,
+            start || startIcon ? 'pl-8' : 'pl-3',
             hidable ? 'pr-9' : 'pr-3',
             'focus:ring-primary-300 block w-full rounded-md border-0 bg-neutral-900/40 py-1.5 pr-3 text-neutral-100 ring-1 ring-inset ring-neutral-300 placeholder:text-neutral-500 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6'
           )}
