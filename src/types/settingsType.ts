@@ -17,6 +17,8 @@ interface SettingsType {
   cardDeauth?: string;
   cardMonitor?: string;
   cardHotspot?: string;
+  cardDefaultHandshake?: string;
+  cardHandshakeTimeout?: string;
   securityBehaviour?: string;
   overrideBehaviour?: string;
   securityInterfaceBehaviour?: string;

@@ -12,6 +12,8 @@
   "cardDeauth": "Virtual",
   "cardMonitor": "Activate When Needed",
   "cardHotspot": "Virtual",
+  "cardDefaultHandshake": "Aireplay",
+  "cardHandshakeTimeout": "20",
   "securityBehaviour": "Kick Device",
   "overrideBehaviour": "Prevent",
   "securityInterfaceBehaviour": "Kick Device",
