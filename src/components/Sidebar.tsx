@@ -7,7 +7,6 @@ import {
   type IconDefinition,
   faBan,
   faBasketShopping,
-  faBuildingWheat,
   faHandshake,
   faHouseChimney,
   faHouseChimneyCrack,
@@ -37,7 +36,6 @@ interface Props {
     | 'gethandshake'
     | 'eviltwinattack'
     | 'terminal'
-    | 'plantnleave'
     | 'wifilockdown'
     | 'handshakecollector'
     | 'wifiblocker'
@@ -187,12 +185,6 @@ export default function Sidebar({
         <h3 className='sidebar-header mt-8 pb-1.5 text-lg font-light text-white/80'>
           Combined Attacks
         </h3>
-        <SidebarLink
-          name="Plant n' Leave"
-          icon={faBuildingWheat}
-          active={active === 'plantnleave'}
-          link='plantnleave'
-        />
         <SidebarLink
           name='Wi-Fi Lockdown'
           icon={faLock}
