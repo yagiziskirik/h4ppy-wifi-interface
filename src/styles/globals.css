@@ -618,6 +618,10 @@
   }
 }
 
+.transform-center {
+  transform: translate(-50%, -50%);
+}
+
 /* Date picker style */
 .react-datepicker__header {
   @apply !bg-neutral-900;
