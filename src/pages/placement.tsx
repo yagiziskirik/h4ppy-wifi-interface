@@ -14,7 +14,7 @@ import clsx from 'clsx';
 import { GetStaticProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import { HiAdjustments, HiWifi } from 'react-icons/hi';
+import { HiAdjustments, HiCog, HiWifi } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
 import Sidebar from '@/components/Sidebar';
@@ -37,6 +37,7 @@ export default function PlacementPage(data: SettingsType) {
   const [compSuccessRate, setCompSuccesRate] = useState(0);
   const [selectedWifi, setSelectedWifi] = useState('');
   const [isCompare, setIsCompare] = useState(false);
+  const [isDeauth, setIsDeauth] = useState(true);
 
   const [wifiSignalHistory, setWifiSignalHistory] = useState<number[]>([]);
   const [clientSignalHistory, setClientSignalHistory] = useState<number[]>([]);
@@ -81,11 +82,7 @@ export default function PlacementPage(data: SettingsType) {
     return () => clearInterval(interval);
   }, [selectedWifi]);
 
-  const toggleIsCompare = () => {
-    setCompWifiSignal(wifiSignal);
-    setCompClientSignal(clientSignal);
-    setCompSuccesRate(successRate);
-    setIsCompare(!isCompare);
+  const resizeCharts = () => {
     setSeed1(Math.random());
     setSeed2(Math.random());
     setSeed3(Math.random());
@@ -93,13 +90,34 @@ export default function PlacementPage(data: SettingsType) {
     setSeed5(Math.random());
     setSeed6(Math.random());
   };
+
+  const toggleIsCompare = () => {
+    setCompWifiSignal(wifiSignal);
+    setCompClientSignal(clientSignal);
+    setCompSuccesRate(successRate);
+    setIsCompare(!isCompare);
+    resizeCharts();
+  };
+
+  const toggleIsDeauth = () => {
+    setIsDeauth(!isDeauth);
+    resizeCharts();
+  };
+
   return (
     <Sidebar data={data} active='placementhelper'>
-      <div className='flex items-center justify-between'>
+      <div className='flex flex-col md:flex-row md:items-center md:justify-between'>
         <h3 className='glitch' data-text='Placer'>
           Placer
         </h3>
-        <div className='flex items-center gap-2'>
+        <div className='mt-4 flex items-center gap-2 md:mt-0'>
+          <Button
+            leftIcon={HiCog}
+            variant={isDeauth ? 'outline' : 'primary'}
+            onClick={toggleIsDeauth}
+          >
+            {isDeauth ? 'Deauth' : 'Wi-Fi'}
+          </Button>
           <Button
             leftIcon={HiAdjustments}
             variant={isCompare ? 'primary' : 'outline'}
@@ -118,34 +136,38 @@ export default function PlacementPage(data: SettingsType) {
       </div>
       <div className='card custom-bg mt-7 p-5'>
         <div className='mb-5 flex flex-col md:mb-10 md:flex-row'>
-          <div
-            className={clsx(isCompare ? 'md:w-3/12' : 'md:w-4/12', 'w-full')}
-          >
-            <div className='text-primary-300 flex items-center gap-3'>
-              <FontAwesomeIcon icon={faVialCircleCheck} width={20} />
-              <h3 className='text-xl font-normal md:text-2xl'>Success Rate</h3>
+          {isDeauth && (
+            <div
+              className={clsx(isCompare ? 'md:w-3/12' : 'md:w-4/12', 'w-full')}
+            >
+              <div className='text-primary-300 flex items-center gap-3'>
+                <FontAwesomeIcon icon={faVialCircleCheck} width={20} />
+                <h3 className='text-xl font-normal md:text-2xl'>
+                  Success Rate
+                </h3>
+              </div>
+              <GaugeComponent
+                type='semicircle'
+                key={seed5}
+                arc={{
+                  colorArray: ['#FF2121', '#00FF15'],
+                  padding: 0.02,
+                  subArcs: [
+                    { limit: 25 },
+                    { limit: 35 },
+                    { limit: 45 },
+                    { limit: 60 },
+                    { limit: 70 },
+                    {},
+                    {},
+                  ],
+                }}
+                pointer={{ type: 'blob', elastic: true, animationDelay: 0 }}
+                value={successRate}
+              />
             </div>
-            <GaugeComponent
-              type='semicircle'
-              key={seed5}
-              arc={{
-                colorArray: ['#FF2121', '#00FF15'],
-                padding: 0.02,
-                subArcs: [
-                  { limit: 25 },
-                  { limit: 35 },
-                  { limit: 45 },
-                  { limit: 60 },
-                  { limit: 70 },
-                  {},
-                  {},
-                ],
-              }}
-              pointer={{ type: 'blob', elastic: true, animationDelay: 0 }}
-              value={successRate}
-            />
-          </div>
-          {isCompare && (
+          )}
+          {isCompare && isDeauth && (
             <div className='mt-5 w-full md:mt-0 md:w-3/12'>
               <div className='flex items-center gap-3 text-neutral-400'>
                 <FontAwesomeIcon icon={faVialCircleCheck} width={20} />
@@ -178,7 +200,8 @@ export default function PlacementPage(data: SettingsType) {
           <div
             className={clsx(
               isCompare ? 'md:w-1/2' : 'md:w-8/12',
-              'mt-5 w-full px-3 md:mt-0'
+              isDeauth ? 'mt-5' : 'mt-0',
+              'w-full px-3 md:mt-0'
             )}
           >
             <h3
@@ -201,29 +224,34 @@ export default function PlacementPage(data: SettingsType) {
               {isCompare &&
                 `/ ${compWifiSignal}% (-${100 - compWifiSignal}dBm)`}
             </p>
-            <p>
-              <b>Client Signal:</b> {clientSignal}% (-{100 - clientSignal}dBm){' '}
-              {isCompare &&
-                `/ ${compClientSignal}% (-${100 - compClientSignal}dBm)`}
-            </p>
-            <p>
-              <b>Success Rate:</b>{' '}
-              <span
-                className={clsx(
-                  isCompare &&
-                    (successRate > compSuccessRate
-                      ? 'text-green-400'
-                      : 'text-red-400')
-                )}
-              >
-                {successRate}%
-              </span>{' '}
-              {isCompare && `/ ${compSuccessRate}%`}
-            </p>
+            {isDeauth && (
+              <>
+                <p>
+                  <b>Client Signal:</b> {clientSignal}% (-{100 - clientSignal}
+                  dBm){' '}
+                  {isCompare &&
+                    `/ ${compClientSignal}% (-${100 - compClientSignal}dBm)`}
+                </p>
+                <p>
+                  <b>Success Rate:</b>{' '}
+                  <span
+                    className={clsx(
+                      isCompare &&
+                        (successRate > compSuccessRate
+                          ? 'text-green-400'
+                          : 'text-red-400')
+                    )}
+                  >
+                    {successRate}%
+                  </span>{' '}
+                  {isCompare && `/ ${compSuccessRate}%`}
+                </p>
+              </>
+            )}
             <p className='border-l-primary-300 text-primary-300 mt-3 border-l-2 pl-2 text-sm font-light !opacity-70'>
-              Place your device to a position to measure the strength of
-              signals. You should be a little bit far away from to Wi-Fi itself,
-              but as close as possible to the targetted client.
+              {isDeauth
+                ? 'Place your device to a position to measure the strength of signals. You should be a little bit far away from to Wi-Fi itself, but as close as possible to the targetted client.'
+                : 'Place your device until the signal is the highest to get optimal placement for best Wi-Fi reception. If the singal at its highest during the tests, you can ensure that the wifi is at is best performance.'}
             </p>
           </div>
         </div>
@@ -232,9 +260,13 @@ export default function PlacementPage(data: SettingsType) {
       <div className='card custom-bg mt-7 p-5'>
         <div
           className={clsx(
-            isCompare
-              ? 'grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1'
-              : 'grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1',
+            isDeauth
+              ? isCompare
+                ? 'grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1'
+                : 'grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1'
+              : isCompare
+              ? 'grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1'
+              : 'grid-cols-1 grid-rows-1',
             'grid'
           )}
         >
@@ -327,49 +359,53 @@ export default function PlacementPage(data: SettingsType) {
               </div>
             </div>
           )}
-          <div className='mt-5 md:mt-0'>
-            <div className='text-primary-300 flex items-center gap-3'>
-              <FontAwesomeIcon icon={faSatelliteDish} width={20} />
-              <h3 className='text-xl font-normal md:text-2xl'>Client Signal</h3>
-            </div>
-            <div className='mt-5 flex flex-col'>
-              <GaugeComponent
-                id='client-signal'
-                value={clientSignal}
-                key={seed3}
-                type='radial'
-                labels={{
-                  markLabel: {
-                    type: 'inner',
-                    marks: [
-                      { value: 20 },
-                      { value: 40 },
-                      { value: 60 },
-                      { value: 80 },
-                      { value: 100 },
+          {isDeauth && (
+            <div className='mt-5 md:mt-0'>
+              <div className='text-primary-300 flex items-center gap-3'>
+                <FontAwesomeIcon icon={faSatelliteDish} width={20} />
+                <h3 className='text-xl font-normal md:text-2xl'>
+                  Client Signal
+                </h3>
+              </div>
+              <div className='mt-5 flex flex-col'>
+                <GaugeComponent
+                  id='client-signal'
+                  value={clientSignal}
+                  key={seed3}
+                  type='radial'
+                  labels={{
+                    markLabel: {
+                      type: 'inner',
+                      marks: [
+                        { value: 20 },
+                        { value: 40 },
+                        { value: 60 },
+                        { value: 80 },
+                        { value: 100 },
+                      ],
+                    },
+                  }}
+                  arc={{
+                    colorArray: ['#EA4228', '#5BE12C'],
+                    subArcs: [
+                      { limit: 15 },
+                      { limit: 30 },
+                      { limit: 50 },
+                      { limit: 70 },
+                      {},
                     ],
-                  },
-                }}
-                arc={{
-                  colorArray: ['#EA4228', '#5BE12C'],
-                  subArcs: [
-                    { limit: 15 },
-                    { limit: 30 },
-                    { limit: 50 },
-                    { limit: 70 },
-                    {},
-                  ],
-                  padding: 0.02,
-                  width: 0.3,
-                }}
-                pointer={{
-                  elastic: true,
-                  animationDelay: 0,
-                }}
-              />
+                    padding: 0.02,
+                    width: 0.3,
+                  }}
+                  pointer={{
+                    elastic: true,
+                    animationDelay: 0,
+                  }}
+                />
+              </div>
             </div>
-          </div>
-          {isCompare && (
+          )}
+          {isCompare && isDeauth && (
             <div className='mt-5 md:mt-0'>
               <div className='flex items-center gap-3 text-neutral-400'>
                 <FontAwesomeIcon icon={faSatelliteDish} width={20} />
@@ -418,7 +454,14 @@ export default function PlacementPage(data: SettingsType) {
           )}
         </div>
       </div>
-      <div className='mb-7 mt-7 grid grid-cols-1 grid-rows-2 gap-7 md:grid-cols-2 md:grid-rows-1'>
+      <div
+        className={clsx(
+          isDeauth
+            ? 'grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1'
+            : 'grid-cols-1 grid-rows-1',
+          'mb-7 mt-7 grid gap-7'
+        )}
+      >
         <div className='card custom-bg p-5'>
           <div className='-pb-10'>
             <h3 className='text-primary-300 -mb-5 ml-4 mt-2 md:ml-8 md:mt-4'>
@@ -427,14 +470,16 @@ export default function PlacementPage(data: SettingsType) {
             <ChartElement incData={wifiSignalHistory} />
           </div>
         </div>
-        <div className='card custom-bg p-5'>
-          <div className='-pb-10'>
-            <h3 className='text-primary-300 -mb-5 ml-4 mt-0 md:ml-8 md:mt-4'>
-              Client Signal
-            </h3>
-            <ChartElement incData={clientSignalHistory} />
+        {isDeauth && (
+          <div className='card custom-bg p-5'>
+            <div className='-pb-10'>
+              <h3 className='text-primary-300 -mb-5 ml-4 mt-0 md:ml-8 md:mt-4'>
+                Client Signal
+              </h3>
+              <ChartElement incData={clientSignalHistory} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </Sidebar>
   );
