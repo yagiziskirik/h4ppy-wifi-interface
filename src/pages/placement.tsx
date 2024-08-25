@@ -282,9 +282,9 @@ export default function PlacementPage(data: SettingsType) {
                 value={wifiSignal}
                 type='radial'
                 labels={{
-                  markLabel: {
+                  tickLabels: {
                     type: 'inner',
-                    marks: [
+                    ticks: [
                       { value: 20 },
                       { value: 40 },
                       { value: 60 },
@@ -328,9 +328,9 @@ export default function PlacementPage(data: SettingsType) {
                   value={compWifiSignal}
                   type='radial'
                   labels={{
-                    markLabel: {
+                    tickLabels: {
                       type: 'inner',
-                      marks: [
+                      ticks: [
                         { value: 20 },
                         { value: 40 },
                         { value: 60 },
@@ -374,9 +374,9 @@ export default function PlacementPage(data: SettingsType) {
                   key={seed3}
                   type='radial'
                   labels={{
-                    markLabel: {
+                    tickLabels: {
                       type: 'inner',
-                      marks: [
+                      ticks: [
                         { value: 20 },
                         { value: 40 },
                         { value: 60 },
@@ -421,9 +421,9 @@ export default function PlacementPage(data: SettingsType) {
                   value={compClientSignal}
                   type='radial'
                   labels={{
-                    markLabel: {
+                    tickLabels: {
                       type: 'inner',
-                      marks: [
+                      ticks: [
                         { value: 20 },
                         { value: 40 },
                         { value: 60 },

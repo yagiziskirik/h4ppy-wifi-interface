@@ -164,9 +164,9 @@ export default function GetHandshakePage(data: SettingsType) {
                 value={45}
                 type='radial'
                 labels={{
-                  markLabel: {
+                  tickLabels: {
                     type: 'inner',
-                    marks: [
+                    ticks: [
                       { value: 20 },
                       { value: 40 },
                       { value: 60 },
