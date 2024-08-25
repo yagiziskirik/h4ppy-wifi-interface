@@ -6,7 +6,8 @@
 import { faHouseSignal } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import clsx from 'clsx';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import moment from 'moment';
 import { GetStaticProps } from 'next';
 import wifiAnimation from 'public/lottie/114586-wifi-connecting.json';

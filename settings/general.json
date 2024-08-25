@@ -20,7 +20,7 @@
   "securityTryCount": "3",
   "securityPassword": "toorOnSteroids",
   "deviceLowBattery": "Shutdown",
-  "interfaceAnimatedBG": false,
+  "interfaceAnimatedBG": true,
   "interfaceLoginBG": true,
   "interfaceZoom": 10
 }

@@ -5,7 +5,8 @@
 
 import { faPeopleArrows } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import { GetStaticProps } from 'next';
 import listenAnimation from 'public/lottie/86540-waling-men-listening-podcast.json';
 import portalAnimation from 'public/lottie/141422-portals.json';
@@ -28,16 +29,22 @@ export default function TerminalPage(data: SettingsType) {
             Select Attack Type
           </h3>
         </div>
-        <div className='mt-5 flex flex-col gap-5 md:flex-row'>
-          <Button className='relative flex w-full flex-col items-center justify-center rounded-xl md:w-1/2'>
-            <Lottie animationData={listenAnimation} />
-            <h1 className='transform-center absolute left-1/2 top-1/2 rounded-lg bg-neutral-800 p-3'>
+        <div className='mt-5 grid grid-cols-1 grid-rows-2 gap-5 md:grid-cols-2 md:grid-rows-1'>
+          <Button className='relative flex items-center gap-3 rounded-xl px-5'>
+            <Lottie
+              animationData={listenAnimation}
+              className='h-24 w-24 md:h-32 md:w-32'
+            />
+            <h1 className='rounded-lg bg-neutral-800 p-3 text-lg md:text-4xl'>
               Man in the Middle
             </h1>
           </Button>
-          <Button className='relative flex w-full flex-col items-center justify-center rounded-xl md:w-1/2'>
-            <Lottie animationData={portalAnimation} />
-            <h1 className='transform-center absolute left-1/2 top-1/2 rounded-lg bg-neutral-800 p-3'>
+          <Button className='relative flex items-center gap-3 rounded-xl px-5'>
+            <Lottie
+              animationData={portalAnimation}
+              className='h-24 w-24 md:h-32 md:w-32'
+            />
+            <h1 className='rounded-lg bg-neutral-800 p-3 text-lg md:text-4xl'>
               Captive Portal
             </h1>
           </Button>
